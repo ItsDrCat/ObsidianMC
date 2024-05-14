@@ -127,15 +127,15 @@ dist
 .pnp.*
 
 # dev files (obsidian)
-block_cat/emissive
-block_cat/flora
-block_cat/matte
-block_cat/metal
-block_cat/n_flora
-block_cat/ore
-block_cat/redstone
-block_cat/sculk
-block_cat/shiny
-block_cat/stone
-block_cat/water
-block_cat/wood
+block_cat/emissive/
+block_cat/flora/
+block_cat/matte/
+block_cat/metal/
+block_cat/n_flora/
+block_cat/ore/
+block_cat/redstone/
+block_cat/sculk/
+block_cat/shiny/
+block_cat/stone/
+block_cat/water/
+block_cat/wood/
