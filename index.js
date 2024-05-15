@@ -140,6 +140,7 @@ function sleep(ms) {
 
   console.log('Obsidian'.brightBlue)
   console.log('DevMerSetup'.brightBlue)
+  console.log('QuickNewPreset'.brightBlue)
 
   const command = await prompts({
     type: 'text',
@@ -690,13 +691,32 @@ function sleep(ms) {
           })
         });
       });
+    
 
     }else{
       console.log('stopping...'.silly)
     }
 
+  }else if(command.option == 'QuickNewPreset'){
+    const newPresetName = await prompts({
+      type: 'text',
+      name: 'name',
+      message: 'What do you want to name the new preset?'
+    });
+
+    try {
+      if (!fs.existsSync('./presets/'+newPresetName.name)) {
+        fs.mkdirSync('./presets/'+newPresetName.name);
+        fs.mkdirSync('./presets/'+newPresetName.name+'/fogs');
+        fs.copy('./presets/Default/config.json','./presets/'+newPresetName.name+'/config.json')
+        var writeStream = fs.createWriteStream('./presets/'+newPresetName.name+'/biomes_client.json')
+        writeStream.write('{\r\n"biomes": {\r\n\r\n}\r\n}')
+        console.log('Should be complete!!!'.rainbow)
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+
   }
-
-
-
 })();
