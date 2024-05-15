@@ -11,6 +11,7 @@
 Upon doing the previous step, a copy of the Default config should have been provided for you. To edit the config, just edit it as you would as any other text file.
 ### Default Config Explanation
 *(Values that are relatively "self-explanitory" will be skipped)*
+*(Reading through MER generation functions inside of the index.js file is reccommened for a better understanding on how math in generation is done)*
 {
     "contrast":0.06,            //Determines the grayscale contrast of texture duing heightmap generation
     "heightIterations":45.815,          //How many levels of detail the posterize function should have during heightmap generation
@@ -62,3 +63,9 @@ Upon doing the previous step, a copy of the Default config should have been prov
     "woodBaseRoughness": 255,
     "woodSubtractRoughnessAverage": 45
 }
+
+## Fogs in Presets
+For convenience, the fog setup in Obsidian is identical to Minecraft and all files provided by your preset will simply just get copied over to the Obsidian converted pack.
+
+If you are unaware of how to setup fogs (especially in RTX) we reccommend reading through this link!
+[Microsoft Learn: Fog in Resource Packs](https://learn.microsoft.com/en-us/minecraft/creator/documents/foginresourcepacks?view=minecraft-bedrock-stable)
