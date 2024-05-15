@@ -69,5 +69,5 @@ Upon doing the previous step, a copy of the Default config should have been prov
 ## Fogs in Presets
 For convenience, the fog setup in Obsidian is identical to Minecraft and all files provided by your preset will simply just get copied over to the Obsidian converted pack.
 
-If you are unaware of how to setup fogs (especially in RTX) we reccommend reading through this link!
+If you are unaware of how to setup fogs (especially in RTX) we recommend reading through this link!
 [Microsoft Learn: Fog in Resource Packs](https://learn.microsoft.com/en-us/minecraft/creator/documents/foginresourcepacks?view=minecraft-bedrock-stable)
