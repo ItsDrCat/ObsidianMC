@@ -1,0 +1,51 @@
+{
+    "contrast":0.024,
+    "heightIterations":24.815,
+
+    "emissivePosterizeIterations": 7.95,
+    "emissiveDetectMin": 75,
+    "emissiveBrightnessSubtraction": 195,
+    "emissiveRoughnessDivision": 15,
+
+    "floraStemRed": 0,
+    "floraStemGreen": 0,
+    "floraStemBlue": 170,
+    "floraFlowerRed": 0,
+    "floraFlowerGreen": 5,
+    "floraFlowerBlue": 85,
+
+    "matteRoughness": 235,
+
+    "metalContrast": -0.02,
+    "metalPosterize": 32.5,
+    "metalMetalMultiplier": 36.5,
+    "metalMetalAverage": 210,
+    "metalRoughnessSubtraction": 15,
+
+    "netherFloraBaseRoughness": 210,
+    "netherFloraDivision": 5,
+
+    "oreOreRed": 180,
+    "oreOreGreen": 0,
+    "oreOreBlue": 60, 
+
+    "redstoneDetectMin": 53,
+    "redstoneEmissiveMultiplier": 1.9,
+
+    "sculkEmissiveMultiplier": 0.2,
+    "sculkRoughnessDivision": 28,
+
+    "shinyMetal": 5,
+    "shinyBaseRoughness": 185,
+    "shinyAverage": 10,
+    "shinyDivision": 2,
+    
+    "stoneBaseRoughness": 255,
+    "stoneSubtractRoughnessAverage": 40,
+    
+    "waterMetal": 15,
+    "waterRoughness": 55,
+
+    "woodBaseRoughness": 255,
+    "woodSubtractRoughnessAverage": 45
+}

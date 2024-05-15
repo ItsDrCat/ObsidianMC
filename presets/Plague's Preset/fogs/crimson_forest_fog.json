@@ -1,0 +1,36 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:fog_settings": {
+      "description": {
+        "identifier": "pgpbr:crimson"
+      },
+      "distance": {
+        "air": {
+          "fog_start": 0.99,
+          "fog_end": 1.0,
+          "fog_color": "#ff2929",
+          "render_distance_type": "render"
+        }
+      },
+      "volumetric": {
+        "density": {
+          "air": {
+            "max_density": 0.04,
+            "uniform": true
+          },
+          "water": {
+            "max_density": 1.0,
+            "uniform": true
+          }
+        },
+        "media_coefficients": {
+          "air": {
+            "scattering": [0.9, 0.12, 0.12],
+            "absorption": [0.0, 0.6, 0.9]
+        
+        }
+      }
+    }
+  }
+}
+  

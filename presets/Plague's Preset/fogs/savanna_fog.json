@@ -1,0 +1,51 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:fog_settings": {
+      "description": {
+        "identifier": "pgpbr:savanna"
+      },
+      "distance": {
+        "air": {
+          "fog_start": 0.9,
+          "fog_end": 1.0,
+          "fog_color": "#ABD2FF",
+          "render_distance_type": "render"
+        },
+        "water": {
+          "fog_start": 0.7,
+          "fog_end": 0.8,
+          "fog_color": "#1aff00",
+          "render_distance_type": "render"
+        },
+        "weather": {
+          "fog_start": 0.99,
+          "fog_end": 1.0,
+          "fog_color": "#666666",
+          "render_distance_type": "render"
+        }
+      },
+      "volumetric": {
+        "density": {
+          "air": {
+            "max_density": 0.011,
+            "uniform": true
+          },
+          "water": {
+            "max_density": 0.003,
+            "uniform": true
+          }
+        },
+        "media_coefficients": {
+          "air": {
+            "scattering":[0.045, 0.026, 0.008],
+            "absorption": [0.0317, 0.0547, 0.0934]
+          },
+          "water": {
+            "scattering": [0.002, 0.003, 0.006],
+            "absorption": [0.282, 0.074, 0.0415]
+          }
+         
+        }
+      }
+    }
+  }
