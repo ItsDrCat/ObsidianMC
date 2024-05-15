@@ -1,3 +1,4 @@
+
 const { createRequire } = require('node:module');
 require = createRequire(__filename); 
 
@@ -49,9 +50,11 @@ function sleep(ms) {
 
 (async () => {
   fs.readdirSync('./tempimg/').forEach(async file => {
+    if(file != 'empty.txt'){
     fs.unlink('./tempimg/'+file, (err) => {
       if (err) throw err;
-    }); 
+    });
+  }
   });
 
 
