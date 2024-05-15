@@ -1,2 +1,9 @@
 # ObsidianMC
- An open source RTX pack creator that makes any pack work with RTX while lookin' good!
+An open source RTX pack creator that makes any pack work with RTX while lookin' good!
+## How to use
+### Before you Begin
+Due to minecraft file quirkiness, only files in the /development_resource_packs/ folder inside of C:/Users/***INSERT USER HERE***/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang
+
+If you want to use a pack with Obsidian, just copy over the pack folder from /=resource_packs/ to /development_resource_packs/ and it should work fine.
+
+### Converting a Pack
