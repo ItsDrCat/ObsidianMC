@@ -11,6 +11,7 @@
 Upon doing the previous step, a copy of the Default config should have been provided for you. To edit the config, just edit it as you would as any other text file.
 ### Default Config Explanation
 *(Values that are relatively "self-explanitory" will be skipped)*
+
 *(Reading through MER generation functions inside of the index.js file is reccommened for a better understanding on how math in generation is done)*
 ```
 {
