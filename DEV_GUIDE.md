@@ -1,0 +1,64 @@
+# Getting Started with Obsidian Preset Creation!
+***(Intermediate knowledge of Minecraft RTX pack creation is needed to follow this guide!!!)***
+## Setting up your own preset
+* Start Obsidian.
+* Run the command 'QuickNewPreset'.
+* Answer asked questions.
+* Check if new preset was created.
+* Done.
+
+## Using the Generator Config
+Upon doing the previous step, a copy of the Default config should have been provided for you. To edit the config, just edit it as you would as any other text file.
+### Default Config Explanation
+*(Values that are relatively "self-explanitory" will be skipped)*
+{
+    "contrast":0.06,            //Determines the grayscale contrast of texture duing heightmap generation
+    "heightIterations":45.815,          //How many levels of detail the posterize function should have during heightmap generation
+
+    "emissivePosterizeIterations": 7.95,        //How many levels of detail the posterize function should have during emmissive MER generation
+    "emissiveDetectMin": 85,        //Minimum pixel brightness in order to be considered a "glowing" pixel
+    "emissiveBrightnessSubtraction": 195,       
+    "emissiveRoughnessDivision": 15,
+
+    "floraStemRed": 0,      //metalness
+    "floraStemGreen": 0,        //emissiveness
+    "floraStemBlue": 200,       //roughness
+    "floraFlowerRed": 0,
+    "floraFlowerGreen": 5,
+    "floraFlowerBlue": 85,
+
+    "matteRoughness": 235,      //how rough "matte" blocks should be
+
+    "metalContrast": -0.05,      //Determines the grayscale contrast of texture duing metal MER generation
+    "metalPosterize": 15.5,     //How many levels of detail the posterize function should have during metal MER generation
+    "metalMetalMultiplier": 54.5,      
+    "metalMetalAverage": 210,       //The base metal value that is averaged with calculated value at a ration of 3:1
+    "metalRoughnessSubtraction": 45,
+
+    "netherFloraBaseRoughness": 150,
+    "netherFloraDivision": 5,
+
+    "oreOreRed": 180,
+    "oreOreGreen": 0,
+    "oreOreBlue": 35, 
+
+    "redstoneDetectMin": 53,        //minimum red value in order for a pixel to be considered as "powered redstone"        
+    "redstoneEmissiveMultiplier": 1.9,      //Multiplier on how bright *activated* redstone should be
+
+    "sculkEmissiveMultiplier": 0.2,     //Multiplier on how bright the blue parts of sculk should be
+    "sculkRoughnessDivision": 28,
+
+    "shinyMetal": 5,        //Metal value of "shiny" blocks
+    "shinyBaseRoughness": 255,      //Base roughness value (subtracted by calculated value)
+    "shinyAverage": 20,     //The base rough value that is averaged with calculated value at a ration of 3:1
+    "shinyDivision": 2,
+    
+    "stoneBaseRoughness": 255,
+    "stoneSubtractRoughnessAverage": 40,
+    
+    "waterMetal": 15,
+    "waterRoughness": 55,
+
+    "woodBaseRoughness": 255,
+    "woodSubtractRoughnessAverage": 45
+}
