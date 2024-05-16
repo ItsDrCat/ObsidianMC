@@ -10,8 +10,8 @@
     "floraStemRed": 0,
     "floraStemGreen": 0,
     "floraStemBlue": 200,
-    "floraFlowerRed": 0,
-    "floraFlowerGreen": 5,
+    "floraFlowerRed": 10,
+    "floraFlowerGreen": 0,
     "floraFlowerBlue": 85,
 
     "matteRoughness": 235,
