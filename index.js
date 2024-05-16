@@ -643,7 +643,7 @@ function sleep(ms) {
       });
       //start texture_set file
       var writeStream = fs.createWriteStream(folder+'/'+slicedFile+".texture_set.json");
-      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":[0,0,255],"heightmap": "'+ slicedFile +'_h"}}')
+      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')
     }
     });
     
