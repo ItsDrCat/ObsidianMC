@@ -16,11 +16,11 @@
 
     "matteRoughness": 235,
 
-    "metalContrast": -0.02,
-    "metalPosterize": 32.5,
-    "metalMetalMultiplier": 36.5,
-    "metalMetalAverage": 210,
-    "metalRoughnessSubtraction": 15,
+    "metalContrast": -0.82,
+    "metalPosterize": 145.5,
+    "metalMetalMultiplier": 145.5,
+    "metalMetalAverage": 255,
+    "metalRoughnessSubtraction": 50,
 
     "netherFloraBaseRoughness": 210,
     "netherFloraDivision": 5,
@@ -35,10 +35,10 @@
     "sculkEmissiveMultiplier": 0.2,
     "sculkRoughnessDivision": 28,
 
-    "shinyMetal": 5,
-    "shinyBaseRoughness": 185,
-    "shinyAverage": 10,
-    "shinyDivision": 2,
+    "shinyMetal": 0,
+    "shinyBaseRoughness": 255,
+    "shinyAverage": 15,
+    "shinyDivision": 4,
     
     "stoneBaseRoughness": 255,
     "stoneSubtractRoughnessAverage": 40,
