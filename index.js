@@ -374,7 +374,7 @@ function sleep(ms) {
         var emissiveMER = data.toString().split("\n");
         if(emissiveMER.includes(file)){
           console.log("file found".america)
-          console.log(config.emissiveDetectMin)
+          console.log(file.rainbow)
           console.log(fileType)
         console.log(folder)
         console.log(file)
@@ -404,6 +404,9 @@ function sleep(ms) {
         if(err) throw err;
         var floraMER = data.toString().split("\n");
         if(floraMER.includes(file)){
+          console.log("file found".america)
+          console.log(file.rainbow)
+          console.log(fileType)
         Jimp.read(folder+'/'+file, (err, texture) => {
           if (err) throw err;
           texture
@@ -436,6 +439,9 @@ function sleep(ms) {
         if(err) throw err;
         var matteMER = data.toString().split("\n");
         if(matteMER.includes(file)){
+          console.log("file found".america)
+          console.log(file.rainbow)
+          console.log(fileType)
         Jimp.read(folder+'/'+file, (err, texture) => {
           if (err) throw err;
           texture
@@ -453,6 +459,9 @@ function sleep(ms) {
         if(err) throw err;
         var metalMER = data.toString().split("\n");
         if(metalMER.includes(file)){
+          console.log("file found".america)
+          console.log(file.rainbow)
+          console.log(fileType)
         Jimp.read(folder+'/'+file, (err, texture) => {
           if (err) throw err;
           texture
@@ -476,6 +485,9 @@ function sleep(ms) {
         if(err) throw err;
         var n_floraMER = data.toString().split("\n");
         if(n_floraMER.includes(file)){
+          console.log("file found".america)
+          console.log(file.rainbow)
+          console.log(fileType)
         Jimp.read(folder+'/'+file, (err, texture) => {
           if (err) throw err;
           texture
