@@ -33,7 +33,7 @@
     "redstoneEmissiveMultiplier": 1.9,
 
     "sculkEmissiveMultiplier": 0.2,
-    "sculkRoughnessDivision": 28,
+    "sculkRoughnessDivision": 0.38,
 
     "shinyMetal": 0,
     "shinyBaseRoughness": 255,
