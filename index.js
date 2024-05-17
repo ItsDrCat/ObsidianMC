@@ -182,6 +182,12 @@ function sleep(ms) {
   console.log(folder.silly)
   //file stuff
 
+  if(config.useCustomGlass == true){
+    fs.copySync('./presets/'+preset.preset+'/assets/glass',folder,{recursive: true})
+  }
+  if(config.forceCustomWater == true){
+    fs.copySync('./presets/'+preset.preset+'/assets/water',folder,{recursive: true})
+  }
 
   //fog folder
   try {
@@ -226,6 +232,16 @@ function sleep(ms) {
     });
 
     //fix water
+
+
+    if(!fs.existsSync(folder+'/water_flow_grey.png')){
+      fs.copySync('./presets/'+preset.preset+'/assets/water/water_flow_grey.png',folder)
+    }
+
+    if(!fs.existsSync(folder+'/water_still_grey.png')){
+      fs.copySync('./presets/'+preset.preset+'/assets/water/water_still_grey.png',folder)
+    }
+
     if(fs.existsSync(folder+'/water_flow_grey.png')){
     Jimp.read(folder+'/water_flow_grey.png', (err, texture) => {
       if (err) throw err;
@@ -754,6 +770,9 @@ function sleep(ms) {
       if (!fs.existsSync('./presets/'+newPresetName.name)) {
         fs.mkdirSync('./presets/'+newPresetName.name);
         fs.mkdirSync('./presets/'+newPresetName.name+'/fogs');
+        fs.mkdirSync('./presets/'+newPresetName.name+'/assets');
+        fs.mkdirSync('./presets/'+newPresetName.name+'/assets/glass');
+        fs.mkdirSync('./presets/'+newPresetName.name+'/assets/water');
         fs.copy('./presets/Default/config.json','./presets/'+newPresetName.name+'/config.json')
         var writeStream = fs.createWriteStream('./presets/'+newPresetName.name+'/biomes_client.json')
         writeStream.write('{\r\n"biomes": {\r\n\r\n}\r\n}')
