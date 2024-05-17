@@ -670,7 +670,7 @@ function sleep(ms) {
     } catch (error){
       console.warn(error);
     }
-    await sleep(3000)
+    await sleep(5000)
     try{
       if(fs.existsSync(folder+'/candles')){
       createMer(folder+'/candles','.png', folder+'/candles')
@@ -678,15 +678,15 @@ function sleep(ms) {
     } catch (error){
       console.warn(error);
     }
-    await sleep(3000)
+    await sleep(5000)
     try{
-      if(fs.existsSync(folder+'/deeplsate')){
+      if(fs.existsSync(folder+'/deepslate')){
       createMer(folder+'/deepslate','.png', folder+'/deepslate')
       }
     } catch (error){
       console.warn(error);
     }
-    await sleep(3000)
+    await sleep(5000)
     try{
       if(fs.existsSync(folder+'/huge_fungus')){
       createMer(folder+'/huge_fungus','.png', folder+'/huge_fungus')
@@ -694,11 +694,12 @@ function sleep(ms) {
     } catch (error){
       console.warn(error);
     }
-    await sleep(3000)
+    await sleep(5000)
     createMer('./tempimg','.png', folder)
     fs.cpSync('./presets/'+preset.preset+'/fogs', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs', {recursive: true});
     fs.cpSync('./presets/'+preset.preset+'/biomes_client.json', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/biomes_client.json', {recursive: false});
 
+    console.log("Please wait until Obsidian automatically closes this window. \r\n This may take some time".pip)
     
 
     //manifest.json checking system
