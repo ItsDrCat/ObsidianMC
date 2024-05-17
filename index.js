@@ -226,6 +226,7 @@ function sleep(ms) {
     });
 
     //fix water
+    if(fs.existsSync(folder+'/water_flow_grey.png')){
     Jimp.read(folder+'/water_flow_grey.png', (err, texture) => {
       if (err) throw err;
       texture
@@ -234,6 +235,8 @@ function sleep(ms) {
         })
         .write(folder+'/water_flow_grey.png'); // save
     });
+  }
+  if(fs.existsSync(folder+'/water_still_grey.png')){
     Jimp.read(folder+'/water_still_grey.png', (err, texture) => {
       if (err) throw err;
       texture
@@ -242,7 +245,7 @@ function sleep(ms) {
         })
         .write(folder+'/water_still_grey.png'); // save
     });
-
+  }
     await sleep(3000)
     
 
@@ -251,7 +254,7 @@ function sleep(ms) {
     writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')    
   }
   });
-
+  if(fs.existsSync(folder+'/deepslate')){
   fs.readdirSync(folder+'/deepslate').forEach(async file => {
     if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
 
@@ -273,8 +276,8 @@ function sleep(ms) {
     var writeStream = fs.createWriteStream(folder+'/deepslate/'+slicedFile+".texture_set.json");
     writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')
 
-    }})
-
+    }})}
+    if(fs.existsSync(folder+'/huge_fungus')){
     fs.readdirSync(folder+'/huge_fungus').forEach(async file => {
       if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
   
@@ -296,8 +299,8 @@ function sleep(ms) {
       var writeStream = fs.createWriteStream(folder+'/huge_fungus/'+slicedFile+".texture_set.json");
       writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')
   
-      }})
-
+      }})}
+      if(fs.existsSync(folder+'/candles')){
       fs.readdirSync(folder+'/candles').forEach(async file => {
         if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
     
@@ -319,7 +322,7 @@ function sleep(ms) {
         var writeStream = fs.createWriteStream(folder+'/candles/'+slicedFile+".texture_set.json");
         writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')
     
-        }})
+        }})}
 
 
     //tga
@@ -662,13 +665,35 @@ function sleep(ms) {
     }
 
     await sleep(11000)
-    createMer(folder,'.png', folder)
+    try{
+      createMer(folder,'.png', folder)
+    } catch (error){
+      console.warn(error);
+    }
     await sleep(3000)
-    createMer(folder+'/candles','.png', folder+'/candles')
+    try{
+      if(fs.existsSync(folder+'/candles')){
+      createMer(folder+'/candles','.png', folder+'/candles')
+      }
+    } catch (error){
+      console.warn(error);
+    }
     await sleep(3000)
-    createMer(folder+'/deepslate','.png', folder+'/deepslate')
+    try{
+      if(fs.existsSync(folder+'/deeplsate')){
+      createMer(folder+'/deepslate','.png', folder+'/deepslate')
+      }
+    } catch (error){
+      console.warn(error);
+    }
     await sleep(3000)
-    createMer(folder+'/huge_fungus','.png', folder+'/huge_fungus')
+    try{
+      if(fs.existsSync(folder+'/huge_fungus')){
+      createMer(folder+'/huge_fungus','.png', folder+'/huge_fungus')
+      }
+    } catch (error){
+      console.warn(error);
+    }
     await sleep(3000)
     createMer('./tempimg','.png', folder)
     fs.cpSync('./presets/'+preset.preset+'/fogs', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs', {recursive: true});
