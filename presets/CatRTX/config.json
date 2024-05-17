@@ -47,5 +47,8 @@
     "waterRoughness": 55,
 
     "woodBaseRoughness": 255,
-    "woodSubtractRoughnessAverage": 50
+    "woodSubtractRoughnessAverage": 50,
+
+    "useCustomGlass": true,
+    "forceCustomWater": true
 }

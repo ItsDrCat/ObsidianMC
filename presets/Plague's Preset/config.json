@@ -1,6 +1,6 @@
 {
-    "contrast":0.024,
-    "heightIterations":24.815,
+    "contrast":0.044,
+    "heightIterations":32.815,
 
     "emissivePosterizeIterations": 7.95,
     "emissiveDetectMin": 75,
@@ -10,7 +10,7 @@
     "floraStemRed": 0,
     "floraStemGreen": 0,
     "floraStemBlue": 170,
-    "floraFlowerRed": 5,
+    "floraFlowerRed": 0,
     "floraFlowerGreen": 0,
     "floraFlowerBlue": 85,
 
@@ -43,9 +43,12 @@
     "stoneBaseRoughness": 255,
     "stoneSubtractRoughnessAverage": 40,
     
-    "waterMetal": 15,
-    "waterRoughness": 55,
+    "waterMetal": 0,
+    "waterRoughness": 15,
 
-    "woodBaseRoughness": 255,
-    "woodSubtractRoughnessAverage": 45
+    "woodBaseRoughness": 225,
+    "woodSubtractRoughnessAverage": 45,
+
+    "useCustomGlass": false,
+    "forceCustomWater": false
 }
