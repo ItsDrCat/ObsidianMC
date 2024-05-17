@@ -63,7 +63,10 @@ Upon doing the previous step, a copy of the Default config should have been prov
     "waterRoughness": 55,
 
     "woodBaseRoughness": 255,
-    "woodSubtractRoughnessAverage": 45
+    "woodSubtractRoughnessAverage": 45,
+
+    "useCustomGlass": false,        //Use glass asset folder
+    "forceCustomWater": false       //Forcefully use water asset folder
 }
 ```
 ## Fogs in Presets
@@ -71,3 +74,12 @@ For convenience, the fog setup in Obsidian is identical to Minecraft and all fil
 
 If you are unaware of how to setup fogs (especially in RTX) we recommend reading through this link!
 [Microsoft Learn: Fog in Resource Packs](https://learn.microsoft.com/en-us/minecraft/creator/documents/foginresourcepacks?view=minecraft-bedrock-stable)
+
+## Getting started with Assets
+Assets are files that are imported into the current texture pack. As of right now there are two main categories for assets: **water** and **glass**.
+
+
+The Water folder should **only consist of two files**, "water_still_grey.png" and "water_flow_grey.png". This folder is required and if either files are missing, Obsidian will crash most of the time. This is because Obsidian uses this asset folder as a backup if a water texture is missing as to prevent water weirdness.
+
+
+The Glass folder may contain as many files as needed. Unlike the water folder, it is not required unless *"forceCustomWater"* is true in the preset config. Though this folder is intended for glass, it could theoretically have any file be imported as well.
