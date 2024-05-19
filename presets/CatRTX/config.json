@@ -1,20 +1,20 @@
 {
-    "contrast":0.26,
-    "heightIterations":45.815,
+    "contrast":0.36,
+    "heightIterations":49.815,
 
     "emissivePosterizeIterations": 7.95,
     "emissiveDetectMin": 85,
-    "emissiveBrightnessSubtraction": 185,
-    "emissiveRoughnessDivision": 15,
+    "emissiveBrightnessSubtraction": 165,
+    "emissiveRoughnessDivision": 14,
 
     "floraStemRed": 0,
     "floraStemGreen": 0,
-    "floraStemBlue": 200,
-    "floraFlowerRed": 5,
+    "floraStemBlue": 230,
+    "floraFlowerRed": 15,
     "floraFlowerGreen": 0,
-    "floraFlowerBlue": 85,
+    "floraFlowerBlue": 125,
 
-    "matteRoughness": 255,
+    "matteRoughness": 235,
 
     "metalContrast": -0.12,
     "metalPosterize": 16.5,
@@ -35,16 +35,16 @@
     "sculkEmissiveMultiplier": 0.3,
     "sculkRoughnessDivision": 25,
 
-    "shinyMetal": 0,
+    "shinyMetal": 5,
     "shinyBaseRoughness": 255,
-    "shinyAverage": 20,
-    "shinyDivision": 2,
+    "shinyAverage": 30,
+    "shinyDivision": 1.3,
     
-    "stoneBaseRoughness": 255,
-    "stoneSubtractRoughnessAverage": 60,
+    "stoneBaseRoughness": 245,
+    "stoneSubtractRoughnessAverage": 55,
     
     "waterMetal": 15,
-    "waterRoughness": 55,
+    "waterRoughness": 50,
 
     "woodBaseRoughness": 255,
     "woodSubtractRoughnessAverage": 50,
