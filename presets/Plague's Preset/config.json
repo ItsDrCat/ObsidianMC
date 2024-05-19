@@ -2,10 +2,10 @@
     "contrast":0.044,
     "heightIterations":32.815,
 
-    "emissivePosterizeIterations": 45.95,
-    "emissiveDetectMin": 85,
+   "emissivePosterizeIterations": 7.95,
+    "emissiveDetectMin": 110,
     "emissiveBrightnessSubtraction": 235,
-    "emissiveRoughnessDivision": 75,
+    "emissiveRoughnessDivision": 15,
 
     "floraStemRed": 0,
     "floraStemGreen": 0,
