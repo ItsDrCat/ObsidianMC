@@ -9,3 +9,6 @@ If you want to use a pack with Obsidian, just copy over the pack folder from /re
 
 ### Converting a Pack
 To Convert a pack, run Obsidian.exe and then select Obsidian in the console. You should then be given several questions which you must answer with case-sensitive answers. Please note that this may take some time and do not exit or close out of the window early.
+
+
+![Minecraft 5_13_2024 6_19_25 PM](https://github.com/ItsDrCat/ObsidianMC/assets/114036615/ac167e8b-938c-4191-93e6-c140d4d51dbc)
