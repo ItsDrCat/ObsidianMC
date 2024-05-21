@@ -1,6 +1,6 @@
 {
-    "contrast":0.26,
-    "heightIterations":59.815,
+    "contrast":0.055,
+    "heightIterations":69.815,
 
     "emissivePosterizeIterations": 37.95,
     "emissiveDetectMin": 85,
@@ -17,8 +17,8 @@
     "matteRoughness": 235,
 
     "metalContrast": -0.12,
-    "metalPosterize": 16.5,
-    "metalMetalMultiplier": 5.5,
+    "metalPosterize": 35.5,
+    "metalMetalMultiplier": 6.0,
     "metalMetalAverage": 200,
     "metalRoughnessSubtraction": 45,
 
@@ -27,7 +27,8 @@
 
     "oreOreRed": 45,
     "oreOreGreen": 70,
-    "oreOreBlue": 25, 
+    "oreOreBlue": 25,
+    "oreStoneDetectionRange": 13.5,  
 
     "redstoneDetectMin": 55,
     "redstoneEmissiveMultiplier": 2.3,
@@ -35,7 +36,7 @@
     "sculkEmissiveMultiplier": 0.3,
     "sculkRoughnessDivision": 25,
 
-    "shinyMetal": 5,
+    "shinyMetal": 2.5,
     "shinyBaseRoughness": 255,
     "shinyAverage": 30,
     "shinyDivision": 1.3,
