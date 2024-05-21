@@ -16,9 +16,9 @@
 
     "matteRoughness": 235,
 
-    "metalContrast": -0.82,
-    "metalPosterize": 145.5,
-    "metalMetalMultiplier": 145.5,
+    "metalContrast": 0.92,
+    "metalPosterize": 240.5,
+    "metalMetalMultiplier": 230.5,
     "metalMetalAverage": 255,
     "metalRoughnessSubtraction": 50,
 
