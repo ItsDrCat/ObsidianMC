@@ -43,7 +43,8 @@ Upon doing the previous step, a copy of the Default config should have been prov
 
     "oreOreRed": 180,
     "oreOreGreen": 0,
-    "oreOreBlue": 35, 
+    "oreOreBlue": 35,
+    "oreStoneDetectionRange": 15,       //The range in which a pixel is determined to be a stone pixel 
 
     "redstoneDetectMin": 53,        //minimum red value in order for a pixel to be considered as "powered redstone"        
     "redstoneEmissiveMultiplier": 1.9,      //Multiplier on how bright *activated* redstone should be
@@ -82,4 +83,4 @@ Assets are files that are imported into the current texture pack. As of right no
 The Water folder should **only consist of two files**, "water_still_grey.png" and "water_flow_grey.png". This folder is required and if either files are missing, Obsidian will crash most of the time. This is because Obsidian uses this asset folder as a backup if a water texture is missing as to prevent water weirdness.
 
 
-The Glass folder may contain as many files as needed. Unlike the water folder, it is not required unless *"forceCustomWater"* is true in the preset config. Though this folder is intended for glass, it could theoretically have any file be imported as well.
+The Glass folder may contain as many files as needed. Unlike the water folder, it is not required unless *"useCustomeGlass"* is true in the preset config. Though this folder is intended for glass, it could theoretically have any file be imported as well as long as it contains the word "glass".

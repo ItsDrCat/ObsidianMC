@@ -27,7 +27,8 @@
 
     "oreOreRed": 180,
     "oreOreGreen": 0,
-    "oreOreBlue": 60, 
+    "oreOreBlue": 60,
+    "oreStoneDetectionRange": 15,  
 
     "redstoneDetectMin": 53,
     "redstoneEmissiveMultiplier": 1.9,

@@ -206,6 +206,7 @@ function sleep(ms) {
 
 
   //png
+  console.log("Starting Heightmap Generation Process!!!".pip)
   fs.readdirSync(folder).forEach(async file => {
     if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
 
@@ -219,8 +220,6 @@ function sleep(ms) {
           .write(folder+'/'+file); // save
         });
       }
-
-    console.log(file.silly);
     let slicedFile = file.slice(0,-4)
     Jimp.read(folder+'/'+file, (err, texture) => {
       if (err) throw err;
@@ -273,8 +272,6 @@ function sleep(ms) {
   if(fs.existsSync(folder+'/deepslate')){
   fs.readdirSync(folder+'/deepslate').forEach(async file => {
     if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
-
-      console.log(file.silly);
     let slicedFile = file.slice(0,-4)
     Jimp.read(folder+'/deepslate/'+file, (err, texture) => {
       if (err) throw err;
@@ -296,8 +293,6 @@ function sleep(ms) {
     if(fs.existsSync(folder+'/huge_fungus')){
     fs.readdirSync(folder+'/huge_fungus').forEach(async file => {
       if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
-  
-        console.log(file.silly);
       let slicedFile = file.slice(0,-4)
       Jimp.read(folder+'/huge_fungus/'+file, (err, texture) => {
         if (err) throw err;
@@ -319,8 +314,6 @@ function sleep(ms) {
       if(fs.existsSync(folder+'/candles')){
       fs.readdirSync(folder+'/candles').forEach(async file => {
         if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
-    
-          console.log(file.silly);
         let slicedFile = file.slice(0,-4)
         Jimp.read(folder+'/candles/'+file, (err, texture) => {
           if (err) throw err;
@@ -380,23 +373,17 @@ function sleep(ms) {
     });
     
     function createMer(folder, fileType, Sfolder) {
+
+      console.log("Starting a MER Generation Instance!!!".pip)
       fs.readdirSync(folder).forEach(async file =>{
-        console.log(file)
         //create arrays of funnies
         //for mer creation
       if(file.endsWith(fileType) &! file.endsWith('_mer'+fileType) &! file.endsWith('_h'+fileType)){
       let slicedFile = file.slice(0,-4)
-      console.log(Sfolder)
-        console.log(Sfolder+'/'+slicedFile+"_mer.png")
       fs.readFile('./block_cat/emissive.txt', function(err, data) {
         if(err) throw err;
         var emissiveMER = data.toString().split("\n");
         if(emissiveMER.includes(file)){
-          console.log("file found".america)
-          console.log(file.rainbow)
-          console.log(fileType)
-        console.log(folder)
-        console.log(file)
           Jimp.read(folder+'/'+file, (err, texture) => {
             if (err) throw err;
             texture
@@ -423,9 +410,6 @@ function sleep(ms) {
         if(err) throw err;
         var floraMER = data.toString().split("\n");
         if(floraMER.includes(file)){
-          console.log("file found".america)
-          console.log(file.rainbow)
-          console.log(fileType)
         Jimp.read(folder+'/'+file, (err, texture) => {
           if (err) throw err;
           texture
@@ -458,9 +442,6 @@ function sleep(ms) {
         if(err) throw err;
         var matteMER = data.toString().split("\n");
         if(matteMER.includes(file)){
-          console.log("file found".america)
-          console.log(file.rainbow)
-          console.log(fileType)
         Jimp.read(folder+'/'+file, (err, texture) => {
           if (err) throw err;
           texture
@@ -478,16 +459,13 @@ function sleep(ms) {
         if(err) throw err;
         var metalMER = data.toString().split("\n");
         if(metalMER.includes(file)){
-          console.log("file found".america)
-          console.log(file.rainbow)
-          console.log(fileType)
         Jimp.read(folder+'/'+file, (err, texture) => {
           if (err) throw err;
           texture
         .greyscale()
-        .contrast(-0.12)
+        .contrast(config.metalContrast)
         //posterize maybe?
-        .posterize(16.5) //add config
+        .posterize(config.metalPosterize) //add config
         .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
           this.bitmap.data[idx+1] = 0
           this.bitmap.data[idx] = (((255 - this.bitmap.data[idx])*config.metalMetalMultiplier)+config.metalMetalAverage)/2
@@ -504,9 +482,6 @@ function sleep(ms) {
         if(err) throw err;
         var n_floraMER = data.toString().split("\n");
         if(n_floraMER.includes(file)){
-          console.log("file found".america)
-          console.log(file.rainbow)
-          console.log(fileType)
         Jimp.read(folder+'/'+file, (err, texture) => {
           if (err) throw err;
           texture
@@ -529,15 +504,15 @@ function sleep(ms) {
           texture
         .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
           let greyscaleVal = (this.bitmap.data[idx]+this.bitmap.data[idx+1]+this.bitmap.data[idx+2])/3
-          if(this.bitmap.data[idx] > (greyscaleVal + 15) || this.bitmap.data[idx] < (greyscaleVal + -15)){
+          if(this.bitmap.data[idx] > (greyscaleVal + config.oreStoneDetectionRange) || this.bitmap.data[idx] < (greyscaleVal + -config.oreStoneDetectionRange)){
             this.bitmap.data[idx+1] = config.oreOreGreen
             this.bitmap.data[idx] = config.oreOreRed
             this.bitmap.data[idx+2] = config.oreOreBlue
-          }else if(this.bitmap.data[idx+1] > (greyscaleVal + 15) || this.bitmap.data[idx] < (greyscaleVal + -15)){
+          }else if(this.bitmap.data[idx+1] > (greyscaleVal + config.oreStoneDetectionRange) || this.bitmap.data[idx] < (greyscaleVal + -config.oreStoneDetectionRange)){
             this.bitmap.data[idx+1] = config.oreOreGreen
             this.bitmap.data[idx] = config.oreOreRed
             this.bitmap.data[idx+2] = config.oreOreBlue
-          }else if(this.bitmap.data[idx+2] > (greyscaleVal + 15) || this.bitmap.data[idx] < (greyscaleVal + -15)){
+          }else if(this.bitmap.data[idx+2] > (greyscaleVal + config.oreStoneDetectionRange) || this.bitmap.data[idx] < (greyscaleVal + -config.oreStoneDetectionRange)){
             this.bitmap.data[idx+1] = config.oreOreGreen
             this.bitmap.data[idx] = config.oreOreRed
             this.bitmap.data[idx+2] = config.oreOreBlue
@@ -715,12 +690,11 @@ function sleep(ms) {
     fs.cpSync('./presets/'+preset.preset+'/fogs', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs', {recursive: true});
     fs.cpSync('./presets/'+preset.preset+'/biomes_client.json', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/biomes_client.json', {recursive: false});
 
-    console.log("Please wait until Obsidian automatically closes this window. \r\n This may take some time".pip)
+    console.log("\r\nPlease wait until Obsidian automatically closes this window. \r\nThis may take some time...".brightMagenta)
     
 
     //manifest.json checking system
     fs.access('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/obsidian.txt', fs.constants.F_OK, (err) => {
-      console.log(`file ${err ? 'does not exist' : 'exists'}`);
       if(err){
         var writeStream = fs.createWriteStream('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/manifest.json');
         writeStream.write('{"format_version": 2,"header": {"name": "'+packName.name+'-Obsidian","description": "An ObsidianMC conversion of '+packName.name+'","uuid": "'+uuidv4()+'","version": [1, 0, 0],"min_engine_version": [1, 16, 0]},"modules": [{"type": "resources","uuid": "'+uuidv4()+'","version": [1, 0, 0]}], "capabilities":["raytraced"]}')
