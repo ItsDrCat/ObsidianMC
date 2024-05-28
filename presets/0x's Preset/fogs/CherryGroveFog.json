@@ -1,0 +1,50 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "vrt:cherry_grove_fog"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 0.99999,
+        "fog_end": 1.0,
+        "fog_color": "#8DC3FF",
+        "render_distance_type": "render"
+      },
+      "water": {
+        "fog_start": 0.799,
+        "fog_end": 1.0,
+        "fog_color": "#50A7C1",
+        "render_distance_type": "render"
+      },
+      "weather": {
+        "fog_start": 0.19,
+        "fog_end": 0.7,
+        "fog_color": "#9B9199",
+        "render_distance_type": "render"
+      }
+    },
+    "volumetric": {
+      "density": {
+        "air": {
+          "max_density": 0.0001,
+          "uniform": true
+        },
+        "water": {
+          "max_density": 1.0,
+          "uniform": true
+        }
+      },
+      "media_coefficients": {
+        "air": {
+          "scattering": "#FCB4D8",
+          "absorption": [0.2, 1.0, 0.254]
+        },
+        "cloud": {
+          "scattering": [1, 1, 1],
+          "absorption": [1, 1, 1]
+        }
+      }
+    }
+  }
+}

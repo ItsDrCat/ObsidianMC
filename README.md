@@ -1,5 +1,4 @@
-# ObsidianMC
-An open source RTX pack creator that makes any pack work with RTX while lookin' good!
+![ObsidianLogo](https://github.com/ItsDrCat/ObsidianMC/assets/114036615/7c7702ba-c567-4a7e-b5ce-065f8ea8558a)
 ## How to use
 ### Before you Begin
 Due to minecraft file quirkiness, only files in the /development_resource_packs/ folder inside of C:/Users/***INSERT USER HERE***/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang
