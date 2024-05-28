@@ -41,8 +41,8 @@
     "shinyAverage": 30,
     "shinyDivision": 1.3,
     
-    "stoneBaseRoughness": 245,
-    "stoneSubtractRoughnessAverage": 55,
+    "stoneBaseRoughness": 255,
+    "stoneSubtractRoughnessAverage": 40,
     
     "waterMetal": 15,
     "waterRoughness": 50,
