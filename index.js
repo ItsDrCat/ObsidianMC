@@ -142,6 +142,7 @@ function sleep(ms) {
   console.log('Obsidian'.brightBlue)
   console.log('DevMerSetup'.brightBlue)
   console.log('QuickNewPreset'.brightBlue)
+  console.log('QuickSetupPack'.brightBlue)
 
   const command = await prompts({
     type: 'text',
@@ -757,5 +758,27 @@ function sleep(ms) {
     }
 
 
+  }else if(command.option == 'QuickSetupPack'){
+    fs.readdirSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/resource_packs/').forEach(file => {
+      console.log(file.brightBlue)
+    });
+    console.log("\r\n(Running this command is optional and is not required to use Obsidian!)".brightMagenta)
+    const selectedPack = await prompts({
+      type: 'text',
+      name: 'name',
+      message: 'Which resource pack would you like to prepare?'
+    });
+    fs.copySync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/resource_packs/'+selectedPack.name,'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+selectedPack.name,{recursive: true})
+    //manifest.json checking system
+    fs.access('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ selectedPack.name +'/obsidian.txt', fs.constants.F_OK, (err) => {
+      if(err){
+        var writeStream = fs.createWriteStream('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ selectedPack.name +'/manifest.json');
+        writeStream.write('{"format_version": 2,"header": {"name": "'+selectedPack.name+'-Obsidian","description": "An ObsidianMC conversion of '+selectedPack.name+'","uuid": "'+uuidv4()+'","version": [1, 0, 0],"min_engine_version": [1, 16, 0]},"modules": [{"type": "resources","uuid": "'+uuidv4()+'","version": [1, 0, 0]}], "capabilities":["raytraced"]}')
+        var writeStream = fs.createWriteStream('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ selectedPack.name +'/obsidian.txt');
+        writeStream.write('This pack was converted to RTX with Obsidian! :3')
+      }
+    });
+
+    console.log("DONE!!! :3".brightMagenta)
   }
 })();
