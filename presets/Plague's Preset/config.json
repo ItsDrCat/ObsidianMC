@@ -1,8 +1,8 @@
 {
-    "contrast":0.044,
-    "heightIterations":32.815,
+    "contrast":0.066,
+    "heightIterations":78.815,
 
-   "emissivePosterizeIterations": 7.95,
+   "emissivePosterizeIterations": 10.95,
     "emissiveDetectMin": 110,
     "emissiveBrightnessSubtraction": 235,
     "emissiveRoughnessDivision": 15,
@@ -51,5 +51,5 @@
     "woodSubtractRoughnessAverage": 45,
     
     "useCustomGlass": false,
-    "forceCustomWater": false
+    "forceCustomWater": true
 }
