@@ -182,7 +182,7 @@ function sleep(ms) {
   let folder = 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/textures/blocks'
   console.log(folder.silly)
   //file stuff
-
+  if(fs.existsSync(folder)){
   if(config.useCustomGlass == true){
     fs.copySync('./presets/'+preset.preset+'/assets/glass',folder,{recursive: true})
   }
@@ -703,7 +703,9 @@ function sleep(ms) {
         writeStream.write('This pack was converted to RTX with Obsidian! :3')
       }
     });
-    
+  }else{
+    console.log("pack doesn't exist!".error)
+  }
     
   }else if(command.option == 'DevMerSetup'){
     fs.readdirSync('./block_cat/').forEach(file => {
