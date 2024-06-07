@@ -22,3 +22,7 @@ To Convert a pack, run Obsidian.exe and then select Obsidian in the console. You
 * Enhanced Terrains -[Broken](https://www.planetminecraft.com/texture-pack/enhanced-terrains-full/)
 * Madoku Craft -[Working](https://www.curseforge.com/minecraft-bedrock/addons/madoku-craft-bedrock)
 * Easy Blocks -[Working](https://www.planetminecraft.com/texture-pack/easy-blocks-bedrock-edition/)
+
+
+
+NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT
