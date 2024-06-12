@@ -8,16 +8,24 @@
   },
   "author": "ItsDrCat",
   "license": "MIT",
+  "type": "module",
   "dependencies": {
     "@colors/colors": "^1.6.0",
+    "@thi.ng/pixel": "^6.1.32",
+    "@thi.ng/pixel-io-netpbm": "^2.1.130",
+    "clamp": "^1.0.1",
     "fs-extra": "^11.2.0",
+    "get-pixels": "^3.3.3",
     "input": "^1.0.1",
     "insert-line": "^1.1.0",
     "jimp": "^0.22.12",
+    "ndarray": "^1.0.19",
     "pngjs": "^7.0.0",
     "prompts": "^2.4.2",
     "punycode": "^2.3.1",
+    "quick-normal-map": "^0.0.0",
     "tga": "^1.0.7",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "zeros": "^1.0.0"
   }
 }

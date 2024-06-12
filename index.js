@@ -9,7 +9,6 @@ const appSettings = require('./settings.json')
 
 //node.js packages
 var Jimp = require("jimp");
-const insertLine = require('insert-line')
 const os = require('os');
 const punycode = require('punycode/');
 const fs = require('fs-extra')
@@ -20,6 +19,7 @@ const { userInfo, platform, hostname } = require('node:os');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const { count } = require('node:console');
+
 
 //colors
 colors.setTheme({
@@ -165,7 +165,8 @@ function sleep(ms) {
   });
 
   //import preset stuffs
-  const config = require('./presets/'+preset.preset+'/config.json')
+  const config = require('./presets/'+preset.preset+'/config.json');
+  console.log(config.heightIterations)
 
 
   fs.readdirSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/').forEach(file => {
@@ -267,8 +268,11 @@ function sleep(ms) {
 
     //start texture_set file
     var writeStream = fs.createWriteStream(folder+'/'+slicedFile+".texture_set.json");
-    writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')    
-  }
+    if(config.generateNormalmaps){
+      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
+      }else{
+      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
+      }  }
   });
   if(fs.existsSync(folder+'/deepslate')){
   fs.readdirSync(folder+'/deepslate').forEach(async file => {
@@ -288,8 +292,11 @@ function sleep(ms) {
 
     //start texture_set file
     var writeStream = fs.createWriteStream(folder+'/deepslate/'+slicedFile+".texture_set.json");
-    writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')
-
+    if(config.generateNormalmaps){
+      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
+      }else{
+      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
+      }
     }})}
     if(fs.existsSync(folder+'/huge_fungus')){
     fs.readdirSync(folder+'/huge_fungus').forEach(async file => {
@@ -309,8 +316,11 @@ function sleep(ms) {
   
       //start texture_set file
       var writeStream = fs.createWriteStream(folder+'/huge_fungus/'+slicedFile+".texture_set.json");
-      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')
-  
+      if(config.generateNormalmaps){
+        writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
+        }else{
+        writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
+        }  
       }})}
       if(fs.existsSync(folder+'/candles')){
       fs.readdirSync(folder+'/candles').forEach(async file => {
@@ -330,8 +340,11 @@ function sleep(ms) {
     
         //start texture_set file
         var writeStream = fs.createWriteStream(folder+'/candles/'+slicedFile+".texture_set.json");
-        writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')
-    
+        if(config.generateNormalmaps){
+          writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
+          }else{
+          writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
+          }    
         }})}
 
 
@@ -369,7 +382,11 @@ function sleep(ms) {
       });
       //start texture_set file
       var writeStream = fs.createWriteStream(folder+'/'+slicedFile+".texture_set.json");
-      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')
+      if(config.generateNormalmaps){
+      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
+      }else{
+      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
+      }
     }
     });
     
@@ -656,6 +673,106 @@ function sleep(ms) {
       }})
     }
 
+    function generateNormals(folder){
+      console.log("Starting a Normalmap Generation Instance!!!".brightBlue)
+      fs.readdirSync(folder).forEach(async file =>{
+        if(file.endsWith('_h.png')){
+          
+          const pixelY_array = []
+          const pixelX_array = []
+
+          //collect data
+          Jimp.read(folder+'/'+file, (err, texture) => {
+              if (err) throw err;
+              texture
+            .grayscale()
+            .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
+
+              let yTop = y-1
+              let yBottom = y+1
+              let xRight = x+1
+              let xLeft = x-1
+
+              //wrapping
+              if(yTop < 0){
+                yTop = texture.bitmap.height
+              }
+              if(yBottom > texture.bitmap.height){
+                yBottom = 0
+              }
+              if(xRight > texture.bitmap.width){
+                xRight = 0
+              }
+              if(xLeft < 0){
+                xLeft = texture.bitmap.width
+              }
+
+              //get values
+              let pixel = Jimp.intToRGBA(texture.getPixelColor(x, y)).r
+              let top = Jimp.intToRGBA(texture.getPixelColor(x, yTop)).r
+              let bottom = Jimp.intToRGBA(texture.getPixelColor(x, yBottom)).r
+              let right = Jimp.intToRGBA(texture.getPixelColor(xRight, y)).r
+              let left = Jimp.intToRGBA(texture.getPixelColor(xLeft, y)).r
+
+              /*
+              console.log('Top '+top)
+              console.log('Bottom '+bottom)
+              console.log('Right '+right)
+              console.log('Left '+left)
+              console.log('Center '+pixel)
+              */
+
+              let pixelY = (top - pixel) + (pixel - bottom)
+              let pixelX = (right - pixel) + (left - pixel)
+
+              pixelY = 127+(pixelY/2)
+              pixelX = (127-(pixelX/2))
+
+              if(pixelY > 255){
+                pixelY = 255
+              }
+              if(pixelY < 0){
+                pixelY = 0
+              }
+
+              if(pixelX > 255){
+                pixelX = 255
+              }
+              if(pixelX < 0){
+                pixelX = 0
+              }
+
+              pixelY_array.push(pixelY)
+              pixelX_array.push(pixelX)
+            
+            /*
+            console.log('PixelX_array '+pixelX_array[x+(y*texture.bitmap.width)])
+            console.log('PixelY_array '+pixelY_array[x+(y*texture.bitmap.width)])
+            */
+            })
+
+          })
+
+          await sleep(8000)
+
+          //write data
+          Jimp.read(folder+'/'+file, (err, texture) => {
+            if (err) throw err;
+            texture
+            .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
+
+              this.bitmap.data[idx + 0] = pixelX_array[x+(y*texture.bitmap.width)];
+              this.bitmap.data[idx + 1] = pixelY_array[x+(y*texture.bitmap.width)];
+              this.bitmap.data[idx + 2] = 255;
+
+            })
+            .write(folder+'/'+file)
+          })
+
+        }
+      })
+    }
+
     await sleep(11000)
     try{
       createMer(folder,'.png', folder)
@@ -690,6 +807,41 @@ function sleep(ms) {
     createMer('./tempimg','.png', folder)
     fs.cpSync('./presets/'+preset.preset+'/fogs', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs', {recursive: true});
     fs.cpSync('./presets/'+preset.preset+'/biomes_client.json', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/biomes_client.json', {recursive: false});
+    
+    if(config.generateNormalmaps){
+    await sleep(15000)
+    try{
+      if(fs.existsSync(folder)){
+      generateNormals(folder)
+      }
+    } catch (error){
+      console.warn(error);
+    }
+    await sleep(15000)
+    try{
+      if(fs.existsSync(folder+'/candles')){
+      generateNormals(folder+'/candles')
+      }
+    } catch (error){
+      console.warn(error);
+    }
+    await sleep(15000)
+    try{
+      if(fs.existsSync(folder+'/deepslate')){
+      generateNormals(folder+'/deepslate')
+      }
+    } catch (error){
+      console.warn(error);
+    }
+    await sleep(15000)
+    try{
+      if(fs.existsSync(folder+'/huge_fungus')){
+      generateNormals(folder+'/huge_fungus')
+      }
+    } catch (error){
+      console.warn(error);
+    }
+  }
 
     console.log("\r\nPlease wait until Obsidian automatically closes this window. \r\nThis may take some time...".brightMagenta)
     
