@@ -725,8 +725,8 @@ function sleep(ms) {
               let pixelY = (top - pixel) + (pixel - bottom)
               let pixelX = (right - pixel) + (left - pixel)
 
-              pixelY = 127+(pixelY/2)
-              pixelX = (127-(pixelX/2))
+              pixelY = (127+(pixelY/0.7))
+              pixelX = (127-(pixelX/0.7))
 
               if(pixelY > 255){
                 pixelY = 255
@@ -766,6 +766,7 @@ function sleep(ms) {
               this.bitmap.data[idx + 2] = 255;
 
             })
+            .gaussian(1)
             .write(folder+'/'+file)
           })
 

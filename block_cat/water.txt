@@ -1,6 +1,6 @@
-cauldron_water.png
 cauldron_water_placeholder.png
 water_flow.png
+cauldron_water.png
 water_placeholder.png
 water_flow_grey.png
 water_still_grey.png
