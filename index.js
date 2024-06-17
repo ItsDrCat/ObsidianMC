@@ -219,6 +219,7 @@ function sleep(ms) {
           .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
             this.bitmap.data[idx+3] = 127
         })
+          .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
           .write(folder+'/'+file); // save
         });
       }
@@ -229,6 +230,7 @@ function sleep(ms) {
         .greyscale()
         .contrast(config.contrast)
         .posterize(config.heightIterations)
+        .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
         .write(folder+'/'+slicedFile+"_h.png"); // save
     });
 
@@ -250,6 +252,7 @@ function sleep(ms) {
         .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
             this.bitmap.data[idx+3] = 127
         })
+        .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
         .write(folder+'/water_flow_grey.png'); // save
     });
   }
@@ -260,6 +263,7 @@ function sleep(ms) {
         .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
             this.bitmap.data[idx+3] = 127
         })
+        .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
         .write(folder+'/water_still_grey.png'); // save
     });
   }
@@ -284,6 +288,7 @@ function sleep(ms) {
         .greyscale()
         .contrast(config.contrast)
         .posterize(config.heightIterations)
+        .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
         .write(folder+'/deepslate/'+slicedFile+"_h.png"); // save
     });
 
@@ -308,6 +313,7 @@ function sleep(ms) {
           .greyscale()
           .contrast(config.contrast)
           .posterize(config.heightIterations)
+          .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
           .write(folder+'/huge_fungus/'+slicedFile+"_h.png"); // save
       });
   
@@ -332,6 +338,7 @@ function sleep(ms) {
             .greyscale()
             .contrast(config.contrast)
             .posterize(config.heightIterations)
+            .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
             .write(folder+'/candles/'+slicedFile+"_h.png"); // save
         });
     
@@ -378,6 +385,7 @@ function sleep(ms) {
           .greyscale()
           .contrast(config.contrast)
           .posterize(config.heightIterations)
+          .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
           .write(folder+'/'+slicedFile+'_h.png'); // save
       });
       //start texture_set file

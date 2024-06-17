@@ -53,5 +53,6 @@
     "useCustomGlass": false,
     "forceCustomWater": false,
     
-    "generateNormalmaps": false
+    "generateNormalmaps": false,
+    "scaleFactor": 1
 }

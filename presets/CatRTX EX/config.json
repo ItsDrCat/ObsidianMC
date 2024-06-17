@@ -1,6 +1,6 @@
 {
-    "contrast":0.055,
-    "heightIterations":69.815,
+    "contrast":0,
+    "heightIterations":78.815,
 
     "emissivePosterizeIterations": 37.95,
     "emissiveDetectMin": 85,
@@ -53,5 +53,6 @@
     "useCustomGlass": true,
     "forceCustomWater": true,
 
-    "generateNormalmaps": true
+    "generateNormalmaps": true,
+    "scaleFactor": 2
 }
