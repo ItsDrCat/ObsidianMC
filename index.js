@@ -36,6 +36,10 @@ colors.setTheme({
   error: 'red'
 });
 
+const heightmap = require('./src/heightmap.js')
+const mer = require('./src/mer.js')
+const normalmap = require('./src/normalmap.js')
+
 
 let user = os.userInfo().username
 let uPlatform = os.platform()
@@ -153,7 +157,7 @@ function sleep(ms) {
 
   if(command.option == 'Obsidian'){
 
-  fs.readdirSync('./presets/').forEach(file => {
+  fs.readdirSync('./src/presets/').forEach(file => {
     console.log(file.brightBlue)
   });
 
@@ -165,7 +169,8 @@ function sleep(ms) {
   });
 
   //import preset stuffs
-  const config = require('./presets/'+preset.preset+'/config.json');
+  const configPath = __dirname+'\\src\\presets\\'+preset.preset+'\\config.json'
+  const config = require(configPath);
   console.log(config.heightIterations)
 
 
@@ -185,10 +190,10 @@ function sleep(ms) {
   //file stuff
   if(fs.existsSync(folder)){
   if(config.useCustomGlass == true){
-    fs.copySync('./presets/'+preset.preset+'/assets/glass',folder,{recursive: true})
+    fs.copySync('./src/presets/'+preset.preset+'/assets/glass',folder,{recursive: true})
   }
   if(config.forceCustomWater == true){
-    fs.copySync('./presets/'+preset.preset+'/assets/water',folder,{recursive: true})
+    fs.copySync('./src/presets/'+preset.preset+'/assets/water',folder,{recursive: true})
   }
 
   //fog folder
@@ -207,591 +212,17 @@ function sleep(ms) {
   }) 
 
 
-  //png
-  console.log("Starting Heightmap Generation Process!!!".pip)
-  fs.readdirSync(folder).forEach(async file => {
-    if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
-
-      if(file.includes('glass')){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-          .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-            this.bitmap.data[idx+3] = 127
-        })
-          .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
-          .write(folder+'/'+file); // save
-        });
-      }
-    let slicedFile = file.slice(0,-4)
-    Jimp.read(folder+'/'+file, (err, texture) => {
-      if (err) throw err;
-      texture
-        .greyscale()
-        .contrast(config.contrast)
-        .posterize(config.heightIterations)
-        .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
-        .write(folder+'/'+slicedFile+"_h.png"); // save
-    });
-
-    //fix water
-
-
-    if(!fs.existsSync(folder+'/water_flow_grey.png')){
-      fs.copySync('./presets/'+preset.preset+'/assets/water/water_flow_grey.png',folder)
-    }
-
-    if(!fs.existsSync(folder+'/water_still_grey.png')){
-      fs.copySync('./presets/'+preset.preset+'/assets/water/water_still_grey.png',folder)
-    }
-
-    if(fs.existsSync(folder+'/water_flow_grey.png')){
-    Jimp.read(folder+'/water_flow_grey.png', (err, texture) => {
-      if (err) throw err;
-      texture
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-            this.bitmap.data[idx+3] = 127
-        })
-        .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
-        .write(folder+'/water_flow_grey.png'); // save
-    });
-  }
-  if(fs.existsSync(folder+'/water_still_grey.png')){
-    Jimp.read(folder+'/water_still_grey.png', (err, texture) => {
-      if (err) throw err;
-      texture
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-            this.bitmap.data[idx+3] = 127
-        })
-        .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
-        .write(folder+'/water_still_grey.png'); // save
-    });
-  }
-    await sleep(3000)
-    
-
-    //start texture_set file
-    var writeStream = fs.createWriteStream(folder+'/'+slicedFile+".texture_set.json");
-    if(config.generateNormalmaps){
-      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
-      }else{
-      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
-      }  }
-  });
-  if(fs.existsSync(folder+'/deepslate')){
-  fs.readdirSync(folder+'/deepslate').forEach(async file => {
-    if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
-    let slicedFile = file.slice(0,-4)
-    Jimp.read(folder+'/deepslate/'+file, (err, texture) => {
-      if (err) throw err;
-      texture
-        .greyscale()
-        .contrast(config.contrast)
-        .posterize(config.heightIterations)
-        .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
-        .write(folder+'/deepslate/'+slicedFile+"_h.png"); // save
-    });
-
-    await sleep(3000)
-    
-
-    //start texture_set file
-    var writeStream = fs.createWriteStream(folder+'/deepslate/'+slicedFile+".texture_set.json");
-    if(config.generateNormalmaps){
-      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
-      }else{
-      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
-      }
-    }})}
-    if(fs.existsSync(folder+'/huge_fungus')){
-    fs.readdirSync(folder+'/huge_fungus').forEach(async file => {
-      if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
-      let slicedFile = file.slice(0,-4)
-      Jimp.read(folder+'/huge_fungus/'+file, (err, texture) => {
-        if (err) throw err;
-        texture
-          .greyscale()
-          .contrast(config.contrast)
-          .posterize(config.heightIterations)
-          .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
-          .write(folder+'/huge_fungus/'+slicedFile+"_h.png"); // save
-      });
-  
-      await sleep(3000)
-      
-  
-      //start texture_set file
-      var writeStream = fs.createWriteStream(folder+'/huge_fungus/'+slicedFile+".texture_set.json");
-      if(config.generateNormalmaps){
-        writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
-        }else{
-        writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
-        }  
-      }})}
-      if(fs.existsSync(folder+'/candles')){
-      fs.readdirSync(folder+'/candles').forEach(async file => {
-        if(file.endsWith('.png') &! file.endsWith('_h.png') &! file.endsWith('_mer.png')){
-        let slicedFile = file.slice(0,-4)
-        Jimp.read(folder+'/candles/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-            .greyscale()
-            .contrast(config.contrast)
-            .posterize(config.heightIterations)
-            .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
-            .write(folder+'/candles/'+slicedFile+"_h.png"); // save
-        });
-    
-        await sleep(3000)
-        
-    
-        //start texture_set file
-        var writeStream = fs.createWriteStream(folder+'/candles/'+slicedFile+".texture_set.json");
-        if(config.generateNormalmaps){
-          writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
-          }else{
-          writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
-          }    
-        }})}
-
-
-    //tga
-    fs.readdirSync(folder).forEach(async file => {
-      if(file.endsWith('.tga') &! file.endsWith('_h.tga')){
-      let slicedFile = file.slice(0,-4)
-      
-      fs.copyFile(folder+'/'+file,'./tempimg/'+file, (err) => {
-        if (err) {
-          // handle error
-          console.log(err);
-          return;
-        }
-      })
-
-      await sleep(3000)
-      //this took away so much of my sanity
-      var tga = new TGA(fs.readFileSync('./tempimg/'+file));
-      var PNG = require('pngjs').PNG;
-      var png = new PNG({
-        width: tga.width,
-        height: tga.height
-      });
-      png.data = tga.pixels;
-      png.pack().pipe(fs.createWriteStream('./tempimg/'+slicedFile+'.png'));
-      await sleep(9000)
-      Jimp.read('./tempimg/'+slicedFile+'.png', (err, texture) => {
-        if (err) throw err;
-        texture
-          .greyscale()
-          .contrast(config.contrast)
-          .posterize(config.heightIterations)
-          .scale(config.scaleFactor, Jimp.RESIZE_NEAREST_NEIGHBOR)
-          .write(folder+'/'+slicedFile+'_h.png'); // save
-      });
-      //start texture_set file
-      var writeStream = fs.createWriteStream(folder+'/'+slicedFile+".texture_set.json");
-      if(config.generateNormalmaps){
-      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","normal": "'+ slicedFile +'_h"}}')
-      }else{
-      writeStream.write('{"format_version":"1.16.100","minecraft:texture_set":{"color": "'+ slicedFile +'","metalness_emissive_roughness":"'+ slicedFile +'_mer","heightmap": "'+ slicedFile +'_h"}}')        
-      }
-    }
-    });
-    
-    function createMer(folder, fileType, Sfolder) {
-
-      console.log("Starting a MER Generation Instance!!!".pip)
-      fs.readdirSync(folder).forEach(async file =>{
-        //create arrays of funnies
-        //for mer creation
-      if(file.endsWith(fileType) &! file.endsWith('_mer'+fileType) &! file.endsWith('_h'+fileType)){
-      let slicedFile = file.slice(0,-4)
-      fs.readFile('./block_cat/emissive.txt', function(err, data) {
-        if(err) throw err;
-        var emissiveMER = data.toString().split("\n");
-        if(emissiveMER.includes(file)){
-          Jimp.read(folder+'/'+file, (err, texture) => {
-            if (err) throw err;
-            texture
-              .greyscale()
-              .posterize(config.emissivePosterizeIterations)
-              .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-                if(this.bitmap.data[idx] >= config.emissiveDetectMin){
-                  this.bitmap.data[idx] = 0
-                  this.bitmap.data[idx+1] = (this.bitmap.data[idx] + this.bitmap.data[idx+1])/2 - config.emissiveBrightnessSubtraction
-                  this.bitmap.data[idx+2] = 255 - (this.bitmap.data[idx=2]/6)
-                }else{
-                  this.bitmap.data[idx+1] = 0
-                  this.bitmap.data[idx] = 0
-                  this.bitmap.data[idx=2] = 255 - (this.bitmap.data[idx=2]/config.emissiveRoughnessDivision)
-                }
-    
-              })
-              .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-          });
-        }
-      });
-      await sleep(3200)
-      fs.readFile('./block_cat/flora.txt', function(err, data) {
-        if(err) throw err;
-        var floraMER = data.toString().split("\n");
-        if(floraMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          let greyscaleVal = (this.bitmap.data[idx]+this.bitmap.data[idx+1]+this.bitmap.data[idx+2])/3
-          if(this.bitmap.data[idx] > greyscaleVal){
-            this.bitmap.data[idx] = config.floraFlowerRed
-            this.bitmap.data[idx+1] = config.floraFlowerGreen
-            this.bitmap.data[idx+2] = config.floraFlowerBlue
-          }else if(this.bitmap.data[idx+1] > greyscaleVal){
-            this.bitmap.data[idx] = config.floraStemRed
-            this.bitmap.data[idx+1] = config.floraStemGreen
-            this.bitmap.data[idx+2] = config.floraStemBlue
-          }else if(this.bitmap.data[idx+2] > greyscaleVal){
-            this.bitmap.data[idx] = config.floraFlowerRed
-            this.bitmap.data[idx+1] = config.floraFlowerGreen
-            this.bitmap.data[idx+2] = config.floraFlowerBlue
-          }else{
-            this.bitmap.data[idx+1] = 0
-            this.bitmap.data[idx] = 0
-            this.bitmap.data[idx+2] = 255
-          }})
-          .write(Sfolder+'/'+slicedFile+"_mer.png"); // save});
-      }
-      )}})
-    
-        
-      await sleep(3400)
-      fs.readFile('./block_cat/matte.txt', function(err, data) {
-        if(err) throw err;
-        var matteMER = data.toString().split("\n");
-        if(matteMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .greyscale()
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          this.bitmap.data[idx+1] = 0
-          this.bitmap.data[idx] = 0
-          this.bitmap.data[idx+2] = config.matteRoughness
-        })
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })}
-      });
-      await sleep(3600)
-      fs.readFile('./block_cat/metal.txt', function(err, data) {
-        if(err) throw err;
-        var metalMER = data.toString().split("\n");
-        if(metalMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .greyscale()
-        .contrast(config.metalContrast)
-        //posterize maybe?
-        .posterize(config.metalPosterize) //add config
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          this.bitmap.data[idx+1] = 0
-          this.bitmap.data[idx] = (((255 - this.bitmap.data[idx])*config.metalMetalMultiplier)+config.metalMetalAverage)/2
-          if(this.bitmap.data[idx] > 255){
-            this.bitmap.data[idx] = 255
-          }
-          this.bitmap.data[idx+2] = (this.bitmap.data[idx]/2)-config.metalRoughnessSubtraction
-        })
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })}
-      });
-      await sleep(3800)
-      fs.readFile('./block_cat/n_flora.txt', function(err, data) {
-        if(err) throw err;
-        var n_floraMER = data.toString().split("\n");
-        if(n_floraMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .greyscale()
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          this.bitmap.data[idx+1] = 0
-          this.bitmap.data[idx] = 0
-          this.bitmap.data[idx+2] = config.netherFloraBaseRoughness - this.bitmap.data[idx]/config.netherFloraDivision
-        })
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })}
-      });
-      await sleep(4000)
-      fs.readFile('./block_cat/ore.txt', function(err, data) {
-        if(err) throw err;
-        var oreMER = data.toString().split("\n");
-        if(oreMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          let greyscaleVal = (this.bitmap.data[idx]+this.bitmap.data[idx+1]+this.bitmap.data[idx+2])/3
-          if(this.bitmap.data[idx] > (greyscaleVal + config.oreStoneDetectionRange) || this.bitmap.data[idx] < (greyscaleVal + -config.oreStoneDetectionRange)){
-            this.bitmap.data[idx+1] = config.oreOreGreen
-            this.bitmap.data[idx] = config.oreOreRed
-            this.bitmap.data[idx+2] = config.oreOreBlue
-          }else if(this.bitmap.data[idx+1] > (greyscaleVal + config.oreStoneDetectionRange) || this.bitmap.data[idx] < (greyscaleVal + -config.oreStoneDetectionRange)){
-            this.bitmap.data[idx+1] = config.oreOreGreen
-            this.bitmap.data[idx] = config.oreOreRed
-            this.bitmap.data[idx+2] = config.oreOreBlue
-          }else if(this.bitmap.data[idx+2] > (greyscaleVal + config.oreStoneDetectionRange) || this.bitmap.data[idx] < (greyscaleVal + -config.oreStoneDetectionRange)){
-            this.bitmap.data[idx+1] = config.oreOreGreen
-            this.bitmap.data[idx] = config.oreOreRed
-            this.bitmap.data[idx+2] = config.oreOreBlue
-          }else{
-          this.bitmap.data[idx+1] = 0
-          this.bitmap.data[idx] = 0
-          this.bitmap.data[idx+2] = config.stoneBaseRoughness - (((this.bitmap.data[idx+2]/0.4) + config.stoneSubtractRoughnessAverage*3)/4)
-          if(this.bitmap.data[idx+2] > 255){
-            this.bitmap.data[idx+2] = 255
-          }
-          }
-        })
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })
-        
-      }
-      });
-      await sleep(4200)
-      fs.readFile('./block_cat/redstone.txt', function(err, data) {
-        if(err) throw err;
-        var redstoneMER = data.toString().split("\n");
-        if(redstoneMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          if(this.bitmap.data[idx]-((this.bitmap.data[idx+1] + this.bitmap.data[idx])/2) >= config.redstoneDetectMin)
-          {
-            this.bitmap.data[idx+1] = this.bitmap.data[idx]*config.redstoneEmissiveMultiplier
-            this.bitmap.data[idx] = 0
-            this.bitmap.data[idx+2] = 0
-          }else{
-            this.bitmap.data[idx+1] = 0
-            this.bitmap.data[idx] = 25
-            this.bitmap.data[idx+2] = 150 - this.bitmap.data[idx]*0.75
-          }
-    
-          if(this.bitmap.data[idx+1] > 255){
-            this.bitmap.data[idx+1] = 255
-          }
-        })
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })}
-      });
-      await sleep(4400)
-      fs.readFile('./block_cat/sculk.txt', function(err, data) {
-        if(err) throw err;
-        var sculkMER = data.toString().split("\n");
-        if(sculkMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          if((this.bitmap.data[idx+2]-((this.bitmap.data[idx+1] + this.bitmap.data[idx])/2)) >= 35){
-            this.bitmap.data[idx+1] = this.bitmap.data[idx+2]+20
-            this.bitmap.data[idx] = 0
-            this.bitmap.data[idx+2] = this.bitmap.data[idx+2]*config.sculkEmissiveMultiplier
-          }else{
-            this.bitmap.data[idx+1] = 0
-            this.bitmap.data[idx] = 0
-            this.bitmap.data[idx+2] = this.bitmap.data[idx+2]/config.sculkRoughnessDivision
-          }
-        })
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })}
-      });
-      await sleep(4600)
-      fs.readFile('./block_cat/shiny.txt', function(err, data) {
-        if(err) throw err;
-        var shinyMER = data.toString().split("\n");
-        if(shinyMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .greyscale()
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          this.bitmap.data[idx+1] = 0
-          this.bitmap.data[idx] = config.shinyMetal
-          this.bitmap.data[idx+2] = ((config.shinyBaseRoughness - this.bitmap.data[idx+2]) + config.shinyAverage)/2
-          //add shiny config later
-        })
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })}
-      });
-      await sleep(4800)
-      fs.readFile('./block_cat/stone.txt', function(err, data) {
-        if(err) throw err;
-        var stoneMER = data.toString().split("\n");
-        if(stoneMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .greyscale()
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          this.bitmap.data[idx+1] = 0
-          this.bitmap.data[idx] = 0
-          this.bitmap.data[idx+2] = config.stoneBaseRoughness - (((this.bitmap.data[idx+2]/0.4) + config.stoneSubtractRoughnessAverage*3)/4)
-          if(this.bitmap.data[idx+2] > 255){
-            this.bitmap.data[idx+2] = 255
-          }
-        })
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })}
-      });
-      await sleep(5000)
-      fs.readFile('./block_cat/water.txt', function(err, data) {
-        if(err) throw err;
-        var waterMER = data.toString().split("\n");
-        if(waterMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .greyscale()
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          this.bitmap.data[idx+1] = 0
-          this.bitmap.data[idx] = config.waterMetal
-          this.bitmap.data[idx+2] = config.waterRoughness
-        })
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })}
-      });
-      await sleep(5200)
-      fs.readFile('./block_cat/wood.txt', function(err, data) {
-        if(err) throw err;
-        var woodMER = data.toString().split("\n");
-        if(woodMER.includes(file)){
-        Jimp.read(folder+'/'+file, (err, texture) => {
-          if (err) throw err;
-          texture
-        .greyscale()
-        .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-          this.bitmap.data[idx+1] = 0
-          this.bitmap.data[idx] = 0
-          this.bitmap.data[idx+2] = config.woodBaseRoughness - (this.bitmap.data[idx+2]+(config.woodSubtractRoughnessAverage*3))/4
-        })
-        .contrast(0.5)
-        .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
-      })}
-      });
-      }})
-    }
-
-    function generateNormals(folder){
-      console.log("Starting a Normalmap Generation Instance!!!".brightBlue)
-      fs.readdirSync(folder).forEach(async file =>{
-        if(file.endsWith('_h.png')){
-          
-          const pixelY_array = []
-          const pixelX_array = []
-
-          //collect data
-          Jimp.read(folder+'/'+file, (err, texture) => {
-              if (err) throw err;
-              texture
-            .grayscale()
-            .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-
-              let yTop = y-1
-              let yBottom = y+1
-              let xRight = x+1
-              let xLeft = x-1
-
-              //wrapping
-              if(yTop < 0){
-                yTop = texture.bitmap.height
-              }
-              if(yBottom > texture.bitmap.height){
-                yBottom = 0
-              }
-              if(xRight > texture.bitmap.width){
-                xRight = 0
-              }
-              if(xLeft < 0){
-                xLeft = texture.bitmap.width
-              }
-
-              //get values
-              let pixel = Jimp.intToRGBA(texture.getPixelColor(x, y)).r
-              let top = Jimp.intToRGBA(texture.getPixelColor(x, yTop)).r
-              let bottom = Jimp.intToRGBA(texture.getPixelColor(x, yBottom)).r
-              let right = Jimp.intToRGBA(texture.getPixelColor(xRight, y)).r
-              let left = Jimp.intToRGBA(texture.getPixelColor(xLeft, y)).r
-
-              /*
-              console.log('Top '+top)
-              console.log('Bottom '+bottom)
-              console.log('Right '+right)
-              console.log('Left '+left)
-              console.log('Center '+pixel)
-              */
-
-              let pixelY = (top - pixel) + (pixel - bottom)
-              let pixelX = (right - pixel) + (left - pixel)
-
-              pixelY = (127+(pixelY/0.7))
-              pixelX = (127-(pixelX/0.7))
-
-              if(pixelY > 255){
-                pixelY = 255
-              }
-              if(pixelY < 0){
-                pixelY = 0
-              }
-
-              if(pixelX > 255){
-                pixelX = 255
-              }
-              if(pixelX < 0){
-                pixelX = 0
-              }
-
-              pixelY_array.push(pixelY)
-              pixelX_array.push(pixelX)
-            
-            /*
-            console.log('PixelX_array '+pixelX_array[x+(y*texture.bitmap.width)])
-            console.log('PixelY_array '+pixelY_array[x+(y*texture.bitmap.width)])
-            */
-            })
-
-          })
-
-          await sleep(8000)
-
-          //write data
-          Jimp.read(folder+'/'+file, (err, texture) => {
-            if (err) throw err;
-            texture
-            .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
-
-              this.bitmap.data[idx + 0] = pixelX_array[x+(y*texture.bitmap.width)];
-              this.bitmap.data[idx + 1] = pixelY_array[x+(y*texture.bitmap.width)];
-              this.bitmap.data[idx + 2] = 255;
-
-            })
-            .gaussian(1)
-            .write(folder+'/'+file)
-          })
-
-        }
-      })
-    }
-
+  heightmap.heightmapProcess(folder, configPath)
     await sleep(11000)
     try{
-      createMer(folder,'.png', folder)
+      mer.createMer(folder,'.png', folder, configPath)
     } catch (error){
       console.warn(error);
     }
     await sleep(5000)
     try{
       if(fs.existsSync(folder+'/candles')){
-      createMer(folder+'/candles','.png', folder+'/candles')
+      mer.createMer(folder+'/candles','.png', folder+'/candles', configPath)
       }
     } catch (error){
       console.warn(error);
@@ -799,7 +230,7 @@ function sleep(ms) {
     await sleep(5000)
     try{
       if(fs.existsSync(folder+'/deepslate')){
-      createMer(folder+'/deepslate','.png', folder+'/deepslate')
+      mer.createMer(folder+'/deepslate','.png', folder+'/deepslate', configPath)
       }
     } catch (error){
       console.warn(error);
@@ -807,21 +238,21 @@ function sleep(ms) {
     await sleep(5000)
     try{
       if(fs.existsSync(folder+'/huge_fungus')){
-      createMer(folder+'/huge_fungus','.png', folder+'/huge_fungus')
+      mer.createMer(folder+'/huge_fungus','.png', folder+'/huge_fungus', configPath)
       }
     } catch (error){
       console.warn(error);
     }
     await sleep(5000)
-    createMer('./tempimg','.png', folder)
-    fs.cpSync('./presets/'+preset.preset+'/fogs', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs', {recursive: true});
-    fs.cpSync('./presets/'+preset.preset+'/biomes_client.json', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/biomes_client.json', {recursive: false});
+    mer.createMer('./tempimg','.png', folder, configPath)
+    fs.cpSync('./src/presets/'+preset.preset+'/fogs', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs', {recursive: true});
+    fs.cpSync('./src/presets/'+preset.preset+'/biomes_client.json', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/biomes_client.json', {recursive: false});
     
     if(config.generateNormalmaps){
     await sleep(15000)
     try{
       if(fs.existsSync(folder)){
-      generateNormals(folder)
+      normalmap.generateNormals(folder, configPath)
       }
     } catch (error){
       console.warn(error);
@@ -829,7 +260,7 @@ function sleep(ms) {
     await sleep(15000)
     try{
       if(fs.existsSync(folder+'/candles')){
-      generateNormals(folder+'/candles')
+        normalmap.generateNormals(folder+'/candles', configPath)
       }
     } catch (error){
       console.warn(error);
@@ -837,7 +268,7 @@ function sleep(ms) {
     await sleep(15000)
     try{
       if(fs.existsSync(folder+'/deepslate')){
-      generateNormals(folder+'/deepslate')
+        normalmap.generateNormals(folder+'/deepslate', configPath)
       }
     } catch (error){
       console.warn(error);
@@ -845,7 +276,7 @@ function sleep(ms) {
     await sleep(15000)
     try{
       if(fs.existsSync(folder+'/huge_fungus')){
-      generateNormals(folder+'/huge_fungus')
+        normalmap.generateNormals(folder+'/huge_fungus', configPath)
       }
     } catch (error){
       console.warn(error);
@@ -905,14 +336,14 @@ function sleep(ms) {
     });
 
     try {
-      if (!fs.existsSync('./presets/'+newPresetName.name)) {
-        fs.mkdirSync('./presets/'+newPresetName.name);
-        fs.mkdirSync('./presets/'+newPresetName.name+'/fogs');
-        fs.mkdirSync('./presets/'+newPresetName.name+'/assets');
-        fs.mkdirSync('./presets/'+newPresetName.name+'/assets/glass');
-        fs.mkdirSync('./presets/'+newPresetName.name+'/assets/water');
-        fs.copy('./presets/Default/config.json','./presets/'+newPresetName.name+'/config.json')
-        var writeStream = fs.createWriteStream('./presets/'+newPresetName.name+'/biomes_client.json')
+      if (!fs.existsSync('./src/presets/'+newPresetName.name)) {
+        fs.mkdirSync('./src/presets/'+newPresetName.name);
+        fs.mkdirSync('./src/presets/'+newPresetName.name+'/fogs');
+        fs.mkdirSync('./src/presets/'+newPresetName.name+'/assets');
+        fs.mkdirSync('./src/presets/'+newPresetName.name+'/assets/glass');
+        fs.mkdirSync('./src/presets/'+newPresetName.name+'/assets/water');
+        fs.copy('./src/presets/Default/config.json','./src/presets/'+newPresetName.name+'/config.json')
+        var writeStream = fs.createWriteStream('./src/presets/'+newPresetName.name+'/biomes_client.json')
         writeStream.write('{\r\n"biomes": {\r\n\r\n}\r\n}')
         console.log('Should be complete!!!'.rainbow)
       }

@@ -1,0 +1,233 @@
+{
+  "biomes": {
+    "default": {
+      "water_surface_color": "#44AFF5",
+      "water_surface_transparency": 0.7,
+      "fog_identifier": "vrt:default_fog"
+    },
+    "beach": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "bamboo_jungle_hills": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "birch_forest": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "birch_forest_hills": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "basalt_deltas": {
+      "fog_identifier": "vrt:basalt_deltas_fog"
+    },
+    "bamboo_jungle": {
+      "fog_identifier": "vrt:default_fog"
+    },
+
+    "cherry_grove": {
+      "fog_identifier": "vrt:cherry_grove_fog"
+    },
+    "crimson_forest": {
+      "fog_identifier": "vrt:crimson_forest_fog"
+    },
+    "cold_ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "cold_taiga": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "cold_taiga_mutated": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "cold_taiga_hills": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "cold_beach": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "desert": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "desert_hills": {
+      "fog_identifier": "vrt:default_fog"
+    },
+
+    "forest_hills": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "deep_frozen_ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "deep_lukewarm_ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "deep_ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+
+    "deep_cold_ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "deep_warm_ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "extreme_hills_plus_trees": {
+      "fog_identifier": "vrt:hills_fog"
+    },
+    "extreme_hills_plus_trees_mutated": {
+      "fog_identifier": "vrt:hills_fog"
+    },
+    "extreme_hills_mutated": {
+      "fog_identifier": "vrt:hills_fog"
+    },
+    "extreme_hills_edge": {
+      "fog_identifier": "vrt:hills_fog"
+    },
+    "extreme_hills": {
+      "fog_identifier": "vrt:hills_fog"
+    },
+    "frozen_river": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "forest": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "flower_forest": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "frozen_ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "hell": {
+      "fog_identifier": "vrt:hell_fog"
+    },
+    "ice_plains": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "ice_plains_spikes": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "ice_mountains": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "jungle_mutated": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "jungle_hills": {
+      "fog_identifier": "vrt:default_fog"
+    },
+
+    "jungle_edge": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "jungle": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "lukewarm_ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mangrove_swamp": {
+      "fog_identifier": "vrt:mangrove_swamp_fog"
+    },
+    "mushroom_island": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mushroom_island_shore": {
+      "fog_identifier": "vrt:default_fog"
+    },
+
+    "mega_taiga": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mega_spruce_taiga": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mega_taiga_mutated": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mega_spruce_taiga_mutated": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mega_taiga_hills": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mesa": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mesa_bryce": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mesa_mutated": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mesa_plateau_stone": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "mesa_plateau": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "plains": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "river": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "roofed_forest": {
+      "fog_identifier": "vrt:default_fog"
+    },
+
+    "sunflower_plains": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "swampland": {
+      "fog_identifier": "vrt:swamp_fog"
+    },
+    "swampland_mutated": {
+      "fog_identifier": "vrt:swamp_fog"
+    },
+    "stone_beach": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "savanna": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "savanna_plateau": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "savanna_mutated": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "soulsand_valley": {
+      "fog_identifier": "vrt:soulsand_valley_fog"
+    },
+    "taiga": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "taiga_mutated": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "taiga_hills": {
+      "fog_identifier": "vrt:default_fog"
+    },
+
+    "the_end": {
+      "fog_identifier": "vrt:end_fog",
+      "water_surface_color": "#A898E8"
+    },
+    "warm_ocean": {
+      "fog_identifier": "vrt:default_fog"
+    },
+    "warped_forest": {
+      "fog_identifier": "vrt:warped_forest_fog"
+    },
+    "powder_snow" : {
+      "fog_identifier" : "minecraft:fog_powder_snow",
+      "fog_ids_to_merge" : [ "minecraft:fog_powder_snow" ],
+      "inherit_from_prior_fog" : false,
+      "water_surface_color" : "#1463a5"
+   }
+  }
+}
