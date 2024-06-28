@@ -54,5 +54,7 @@
     "forceCustomWater": true,
 
     "generateNormalmaps": true,
-    "scaleFactor": 1
+    "scaleFactor": 1,
+
+    "isDeferred": false
 }

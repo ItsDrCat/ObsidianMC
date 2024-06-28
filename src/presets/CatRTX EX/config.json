@@ -51,8 +51,10 @@
     "woodSubtractRoughnessAverage": 50,
 
     "useCustomGlass": true,
-    "forceCustomWater": true,
+    "forceCustomWater": false,
 
-    "generateNormalmaps": true,
-    "scaleFactor": 1
+    "generateNormalmaps": false,
+    "scaleFactor": 1,
+
+    "isDeferred": true
 }
