@@ -172,7 +172,10 @@ function sleep(ms) {
   //import preset stuffs
   const configPath = __dirname+'\\src\\presets\\'+preset.preset+'\\config.json'
   const config = require(configPath);
-  console.log(config.heightIterations)
+
+  if(config.isDeferred){
+    console.log("\r\nTHIS PRESET USES MINECRAFT PREVIEW'S DEFERRED RENDERING PIPELINE!!! TO USE PACKS WITH THIS PRESET, IMPORT PACKS WITH: 'QuickSetupPack-D'\r\n".error)
+  }
 
   if(config.isDeferred == true){
     fs.readdirSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/').forEach(file => {
