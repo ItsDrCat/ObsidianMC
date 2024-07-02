@@ -7,7 +7,7 @@
 Due to minecraft file quirkiness, only files in the /development_resource_packs/ folder inside of C:/Users/***INSERT USER HERE***/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang are actually used by Obsidian in most cases
 
 
-If you want to use a pack with Obsidian, just copy over the pack folder from /resource_packs/ to /development_resource_packs/ or use the QuickSetupPack option on launch for Obsidian to do that for you.
+If you want to use a pack with Obsidian, just copy over the pack folder from /resource_packs/ to /development_resource_packs/ or use the QuickSetupPack option on launch for Obsidian to do that for you. (For Deferred Presets, use QuickSetupPack-D to quickly prepare packs for Minecraft Preview)
 
 ### Converting a Pack
 To Convert a pack, run Obsidian.exe and then select Obsidian in the console. You should then be given several questions which you must answer with case-sensitive answers. Please note that this may take some time and do not exit or close out of the window early.
