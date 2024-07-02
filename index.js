@@ -211,6 +211,17 @@ function sleep(ms) {
   if(config.forceCustomWater == true){
     fs.copySync('./src/presets/'+preset.preset+'/assets/water',folder,{recursive: true})
   }
+  if(config.isDeferred == true){
+    if (!fs.existsSync(folderBase+'/lighting')) {
+    fs.mkdirSync(folderBase + '/lighting');
+    }
+    if (!fs.existsSync(folderBase+'/color_grading')) {
+    fs.mkdirSync(folderBase + '/color_grading/');
+    }
+    fs.copySync('./src/presets/'+preset.preset+'/lighting/global.json',folderBase + '/lighting/global.json',{recursive: false})
+    fs.copySync('./src/presets/'+preset.preset+'/lighting/atmospherics.json',folderBase + '/lighting/atmospherics.json',{recursive: false})
+    fs.copySync('./src/presets/'+preset.preset+'/color_grading/color_grading.json',folderBase + '/color_grading/color_grading.json',{recursive: false})
+  }
 
   //fog folder
   try {
@@ -366,6 +377,8 @@ function sleep(ms) {
         fs.mkdirSync('./src/presets/'+newPresetName.name+'/assets');
         fs.mkdirSync('./src/presets/'+newPresetName.name+'/assets/glass');
         fs.mkdirSync('./src/presets/'+newPresetName.name+'/assets/water');
+        fs.mkdirSync('./src/presets/'+newPresetName.name+'/lighting');
+        fs.mkdirSync('./src/presets/'+newPresetName.name+'/color_grading');
         fs.copy('./src/presets/Default/config.json','./src/presets/'+newPresetName.name+'/config.json')
         var writeStream = fs.createWriteStream('./src/presets/'+newPresetName.name+'/biomes_client.json')
         writeStream.write('{\r\n"biomes": {\r\n\r\n}\r\n}')

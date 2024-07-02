@@ -2,9 +2,9 @@
     "contrast":0,
     "heightIterations":78.815,
 
-    "emissivePosterizeIterations": 37.95,
-    "emissiveDetectMin": 85,
-    "emissiveBrightnessSubtraction": 295,
+    "emissivePosterizeIterations": 50.95,
+    "emissiveDetectMin": 95,
+    "emissiveBrightnessSubtraction": 325,
     "emissiveRoughnessDivision": 14,
 
     "floraStemRed": 0,
@@ -26,7 +26,7 @@
     "netherFloraDivision": 5,
 
     "oreOreRed": 45,
-    "oreOreGreen": 70,
+    "oreOreGreen": 15,
     "oreOreBlue": 25,
     "oreStoneDetectionRange": 13.5,  
 
