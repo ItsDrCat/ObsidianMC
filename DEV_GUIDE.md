@@ -92,3 +92,17 @@ The Glass folder may contain as many files as needed. Unlike the water folder, i
 
 ## Deffered Rendering and Obsidian
 As of the 0.1.4 release, Obsidian now has full Deferred Rendering support for Minecraft preview. Similar to fogs in Obsidian, all files required for a proper Deferred pack will be copied over into the Obsidian converted pack (By default, Obsidian does not create required files for you, so you will have to make them yourself). Due to the similarities between Deferred and RTX, the development environment for presets is roughly the same and is changed all that much, however things like fogs and some generation settings will not look the same.
+
+## Using the Obsidian Source
+**(Before doing anything, make sure you have all of NodeJS and NPM installed on your device)**
+
+
+You can sometimes access some features "early" by using the Obsidian source code instead! To properly download Obsidian's source for use, we must run these three commands in order:
+```
+git clone https://github.com/ItsDrCat/ObsidianMC
+
+cd ObsidianMC
+
+npm i
+```
+Now you have a functioning version of Obsidian's source installed locally! To use Obsidian, run the command ``node index.js`` and it should create an instance of Obsidian in the console you ran said command in!
