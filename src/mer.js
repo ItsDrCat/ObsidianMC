@@ -74,6 +74,19 @@ function createMer(folder, fileType, Sfolder, configPath) {
                 this.bitmap.data[idx] = 0
                 this.bitmap.data[idx=2] = 255 - (this.bitmap.data[idx=2]/config.emissiveRoughnessDivision)
               }
+              if(this.bitmap.data[idx+1] > 255){
+                this.bitmap.data[idx+1] = 255
+              }
+              if(this.bitmap.data[idx+2] > 255){
+                this.bitmap.data[idx+2] = 255
+              }
+
+              if(this.bitmap.data[idx+1] < 0){
+                this.bitmap.data[idx+1] = 0
+              }
+              if(this.bitmap.data[idx+2] < 0){
+                this.bitmap.data[idx+2] = 0
+              }
   
             })
             .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
@@ -146,6 +159,16 @@ function createMer(folder, fileType, Sfolder, configPath) {
         this.bitmap.data[idx] = (((255 - this.bitmap.data[idx])*config.metalMetalMultiplier)+config.metalMetalAverage)/1.3
         if(this.bitmap.data[idx] > 255){
           this.bitmap.data[idx] = 255
+        }
+        if(this.bitmap.data[idx+2] > 255){
+          this.bitmap.data[idx+2] = 255
+        }
+
+        if(this.bitmap.data[idx] < 0){
+          this.bitmap.data[idx] = 0
+        }
+        if(this.bitmap.data[idx+2] < 0){
+          this.bitmap.data[idx+2] = 0
         }
         this.bitmap.data[idx+2] = ((this.bitmap.data[idx]/2)-config.metalRoughnessSubtraction)/4
       })
@@ -268,6 +291,20 @@ function createMer(folder, fileType, Sfolder, configPath) {
         this.bitmap.data[idx] = config.shinyMetal
         this.bitmap.data[idx+2] = ((config.shinyBaseRoughness - this.bitmap.data[idx+2]) + config.shinyAverage)/2
         //add shiny config later
+
+        if(this.bitmap.data[idx] > 255){
+          this.bitmap.data[idx] = 255
+        }
+        if(this.bitmap.data[idx+2] > 255){
+          this.bitmap.data[idx+2] = 255
+        }
+
+        if(this.bitmap.data[idx] < 0){
+          this.bitmap.data[idx] = 0
+        }
+        if(this.bitmap.data[idx+2] < 0){
+          this.bitmap.data[idx+2] = 0
+        }
       })
       .write(Sfolder+'/'+slicedFile+"_mer.png"); // save
     })}
