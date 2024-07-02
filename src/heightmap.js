@@ -60,6 +60,9 @@ function heightmapProcess(folder, configPath){
           texture
           .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
             this.bitmap.data[idx+3] = 127
+            if(config.isDeferred == true){
+              this.bitmap.data[idx+3] = 150
+            }
         })
     
           .write(folder+'/'+file); // save
@@ -92,6 +95,9 @@ function heightmapProcess(folder, configPath){
       texture
         .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
             this.bitmap.data[idx+3] = 127
+            if(config.isDeferred == true){
+              this.bitmap.data[idx+3] = 150
+            }
         })
         .write(folder+'/water_flow_grey.png'); // save
     });
@@ -102,6 +108,9 @@ function heightmapProcess(folder, configPath){
       texture
         .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
             this.bitmap.data[idx+3] = 127
+            if(config.isDeferred == true){
+              this.bitmap.data[idx+3] = 150
+            }
         })
         .write(folder+'/water_still_grey.png'); // save
     });

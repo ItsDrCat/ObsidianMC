@@ -1,0 +1,39 @@
+{
+  "minecraft:color_grading_settings": {
+    "description": {
+      "identifier": ""
+    },
+    "color_grading": {
+      "midtones": {
+        "contrast": [
+          1.2999999523162842,
+          1.2999999523162842,
+          1.2999999523162842
+        ],
+        "gain": [
+          2,
+          2,
+          2
+        ],
+        "gamma": [
+          2.200000047683716,
+          2.200000047683716,
+          2.200000047683716
+        ],
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "saturation": [
+          1.0499999523162842,
+          1.0499999523162842,
+          1.0499999523162842
+        ]
+      }
+    },
+    "tone_mapping": {
+      "operator": "reinhard_luminance"
+    }
+  }
+}

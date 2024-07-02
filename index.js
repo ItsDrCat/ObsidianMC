@@ -147,6 +147,7 @@ function sleep(ms) {
   console.log('DevMerSetup'.brightBlue)
   console.log('QuickNewPreset'.brightBlue)
   console.log('QuickSetupPack'.brightBlue)
+  console.log('QuickSetupPack-D'.brightBlue)
 
   const command = await prompts({
     type: 'text',
@@ -173,10 +174,15 @@ function sleep(ms) {
   const config = require(configPath);
   console.log(config.heightIterations)
 
-
-  fs.readdirSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/').forEach(file => {
-    console.log(file.brightBlue)
-  });
+  if(config.isDeferred == true){
+    fs.readdirSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/').forEach(file => {
+      console.log(file.brightBlue)
+    })
+  }else{
+    fs.readdirSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/').forEach(file => {
+      console.log(file.brightBlue)
+    });
+  }
 
   const packName = await prompts({
     type: 'text',
@@ -185,8 +191,18 @@ function sleep(ms) {
     
   });
 
-  let folder = 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/textures/blocks'
-  console.log(folder.silly)
+  let folder = 'cat'
+  let folderBase = 'alsocat'
+
+  if(config.isDeferred == true){
+    folder = 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/textures/blocks'
+    console.log(folder.silly)
+    folderBase = 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name
+  }else{
+    folder = 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/textures/blocks'
+    console.log(folder.silly)
+    folderBase = 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name
+  }
   //file stuff
   if(fs.existsSync(folder)){
   if(config.useCustomGlass == true){
@@ -195,18 +211,29 @@ function sleep(ms) {
   if(config.forceCustomWater == true){
     fs.copySync('./src/presets/'+preset.preset+'/assets/water',folder,{recursive: true})
   }
+  if(config.isDeferred == true){
+    if (!fs.existsSync(folderBase+'/lighting')) {
+    fs.mkdirSync(folderBase + '/lighting');
+    }
+    if (!fs.existsSync(folderBase+'/color_grading')) {
+    fs.mkdirSync(folderBase + '/color_grading/');
+    }
+    fs.copySync('./src/presets/'+preset.preset+'/lighting/global.json',folderBase + '/lighting/global.json',{recursive: false})
+    fs.copySync('./src/presets/'+preset.preset+'/lighting/atmospherics.json',folderBase + '/lighting/atmospherics.json',{recursive: false})
+    fs.copySync('./src/presets/'+preset.preset+'/color_grading/color_grading.json',folderBase + '/color_grading/color_grading.json',{recursive: false})
+  }
 
   //fog folder
   try {
-    if (!fs.existsSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs')) {
-      fs.mkdirSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs');
+    if (!fs.existsSync(folderBase+'/fogs')) {
+      fs.mkdirSync(folderBase+'/fogs');
     }
   } catch (err) {
     console.error(err);
   }
 
-  fs.readdirSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs').forEach(async file => {
-    fs.unlink('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs/'+file, (err) => {
+  fs.readdirSync(folderBase+'/fogs').forEach(async file => {
+    fs.unlink(folderBase +'/fogs/'+file, (err) => {
       if (err) throw err;
   });
   }) 
@@ -245,8 +272,8 @@ function sleep(ms) {
     }
     await sleep(5000)
     mer.createMer('./tempimg','.png', folder, configPath)
-    fs.cpSync('./src/presets/'+preset.preset+'/fogs', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/fogs', {recursive: true});
-    fs.cpSync('./src/presets/'+preset.preset+'/biomes_client.json', 'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/biomes_client.json', {recursive: false});
+    fs.cpSync('./src/presets/'+preset.preset+'/fogs', folderBase +'/fogs', {recursive: true});
+    fs.cpSync('./src/presets/'+preset.preset+'/biomes_client.json', folderBase +'/biomes_client.json', {recursive: false});
     
     if(config.generateNormalmaps){
     await sleep(15000)
@@ -287,12 +314,20 @@ function sleep(ms) {
     
 
     //manifest.json checking system
-    fs.access('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/obsidian.txt', fs.constants.F_OK, (err) => {
+    fs.access(folderBase +'/obsidian.txt', fs.constants.F_OK, (err) => {
       if(err){
-        var writeStream = fs.createWriteStream('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/manifest.json');
-        writeStream.write('{"format_version": 2,"header": {"name": "'+packName.name+'-Obsidian","description": "An ObsidianMC conversion of '+packName.name+'","uuid": "'+uuidv4()+'","version": [1, 0, 0],"min_engine_version": [1, 16, 0]},"modules": [{"type": "resources","uuid": "'+uuidv4()+'","version": [1, 0, 0]}], "capabilities":["raytraced"]}')
-        var writeStream = fs.createWriteStream('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ packName.name +'/obsidian.txt');
-        writeStream.write('This pack was converted to RTX with Obsidian! :3')
+        if(config.isDeferred)
+          {
+            var writeStream = fs.createWriteStream(folderBase +'/manifest.json');
+            writeStream.write('{"format_version": 2,"header": {"name": "'+packName.name+'-Obsidian","description": "An ObsidianMC conversion of '+packName.name+'","uuid": "'+uuidv4()+'","version": [1, 0, 0],"min_engine_version": [1, 16, 0]},"modules": [{"type": "resources","uuid": "'+uuidv4()+'","version": [1, 0, 0]}], "capabilities":["pbr"]}')
+            var writeStream = fs.createWriteStream(folderBase +'/obsidian.txt');
+            writeStream.write('This pack was converted to RTX with Obsidian! :3')
+          }else{
+            var writeStream = fs.createWriteStream(folderBase +'/manifest.json');
+            writeStream.write('{"format_version": 2,"header": {"name": "'+packName.name+'-Obsidian","description": "An ObsidianMC conversion of '+packName.name+'","uuid": "'+uuidv4()+'","version": [1, 0, 0],"min_engine_version": [1, 16, 0]},"modules": [{"type": "resources","uuid": "'+uuidv4()+'","version": [1, 0, 0]}], "capabilities":["raytraced"]}')
+            var writeStream = fs.createWriteStream(folderBase +'/obsidian.txt');
+            writeStream.write('This pack was converted to RTX with Obsidian! :3')
+          }
       }
     });
   }else{
@@ -342,6 +377,8 @@ function sleep(ms) {
         fs.mkdirSync('./src/presets/'+newPresetName.name+'/assets');
         fs.mkdirSync('./src/presets/'+newPresetName.name+'/assets/glass');
         fs.mkdirSync('./src/presets/'+newPresetName.name+'/assets/water');
+        fs.mkdirSync('./src/presets/'+newPresetName.name+'/lighting');
+        fs.mkdirSync('./src/presets/'+newPresetName.name+'/color_grading');
         fs.copy('./src/presets/Default/config.json','./src/presets/'+newPresetName.name+'/config.json')
         var writeStream = fs.createWriteStream('./src/presets/'+newPresetName.name+'/biomes_client.json')
         writeStream.write('{\r\n"biomes": {\r\n\r\n}\r\n}')
@@ -369,6 +406,30 @@ function sleep(ms) {
         var writeStream = fs.createWriteStream('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ selectedPack.name +'/manifest.json');
         writeStream.write('{"format_version": 2,"header": {"name": "'+selectedPack.name+'-Obsidian","description": "An ObsidianMC conversion of '+selectedPack.name+'","uuid": "'+uuidv4()+'","version": [1, 0, 0],"min_engine_version": [1, 16, 0]},"modules": [{"type": "resources","uuid": "'+uuidv4()+'","version": [1, 0, 0]}], "capabilities":["raytraced"]}')
         var writeStream = fs.createWriteStream('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ selectedPack.name +'/obsidian.txt');
+        writeStream.write('This pack was converted to RTX with Obsidian! :3')
+      }
+    });
+
+    console.log("DONE!!! :3".brightMagenta)
+
+    
+  }else if(command.option == 'QuickSetupPack-D'){
+    fs.readdirSync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/resource_packs/').forEach(file => {
+      console.log(file.brightBlue)
+    });
+    console.log("\r\n(Running this command is optional and is not required to use Obsidian!)".brightMagenta)
+    const selectedPack = await prompts({
+      type: 'text',
+      name: 'name',
+      message: 'Which resource pack would you like to prepare?'
+    });
+    fs.copySync('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/resource_packs/'+selectedPack.name,'C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+selectedPack.name,{recursive: true})
+    //manifest.json checking system
+    fs.access('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ selectedPack.name +'/obsidian.txt', fs.constants.F_OK, (err) => {
+      if(err){
+        var writeStream = fs.createWriteStream('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ selectedPack.name +'/manifest.json');
+        writeStream.write('{"format_version": 2,"header": {"name": "'+selectedPack.name+'-Obsidian","description": "An ObsidianMC conversion of '+selectedPack.name+'","uuid": "'+uuidv4()+'","version": [1, 0, 0],"min_engine_version": [1, 16, 0]},"modules": [{"type": "resources","uuid": "'+uuidv4()+'","version": [1, 0, 0]}], "capabilities":["pbr"]}')
+        var writeStream = fs.createWriteStream('C:/Users/'+user+'/AppData/Local/Packages/Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe/LocalState/games/com.mojang/development_resource_packs/'+ selectedPack.name +'/obsidian.txt');
         writeStream.write('This pack was converted to RTX with Obsidian! :3')
       }
     });
