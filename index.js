@@ -278,7 +278,7 @@ function sleep(ms) {
     fs.cpSync('./src/presets/'+preset.preset+'/fogs', folderBase +'/fogs', {recursive: true});
     fs.cpSync('./src/presets/'+preset.preset+'/biomes_client.json', folderBase +'/biomes_client.json', {recursive: false});
     
-    if(config.generateNormalmaps){
+    if(config.generateNormalmaps == 1){
     await sleep(15000)
     try{
       if(fs.existsSync(folder)){
@@ -307,6 +307,41 @@ function sleep(ms) {
     try{
       if(fs.existsSync(folder+'/huge_fungus')){
         normalmap.generateNormals(folder+'/huge_fungus', configPath)
+      }
+    } catch (error){
+      console.warn(error);
+    }
+  }
+
+  if(config.generateNormalmaps == 2){
+    await sleep(15000)
+    try{
+      if(fs.existsSync(folder)){
+      normalmap.generateHeightNormals(folder, configPath)
+      }
+    } catch (error){
+      console.warn(error);
+    }
+    await sleep(15000)
+    try{
+      if(fs.existsSync(folder+'/candles')){
+        normalmap.generateHeightNormals(folder+'/candles', configPath)
+      }
+    } catch (error){
+      console.warn(error);
+    }
+    await sleep(15000)
+    try{
+      if(fs.existsSync(folder+'/deepslate')){
+        normalmap.generateHeightNormals(folder+'/deepslate', configPath)
+      }
+    } catch (error){
+      console.warn(error);
+    }
+    await sleep(15000)
+    try{
+      if(fs.existsSync(folder+'/huge_fungus')){
+        normalmap.generateHeightNormals(folder+'/huge_fungus', configPath)
       }
     } catch (error){
       console.warn(error);
