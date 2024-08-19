@@ -68,7 +68,7 @@ function sleep(ms) {
   //oh my god, its so shit
   //remember that you have to make a toggle for this bud
   if(appSettings.doBootAnimation == true){
-  console.log('************** OBSIDIAN-MC V0.1.5 **************'.pip)
+  console.log('************** OBSIDIAN-MC V0.1.6a **************'.pip)
   console.log('\r\n')
   await sleep (200)
   console.log('MADE BY ITSDRCAT'.pip)
