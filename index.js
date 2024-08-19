@@ -1,4 +1,3 @@
-
 const { createRequire } = require('node:module');
 require = createRequire(__filename); 
 
@@ -38,7 +37,8 @@ colors.setTheme({
 
 const heightmap = require('./src/heightmap.js')
 const mer = require('./src/mer.js')
-const normalmap = require('./src/normalmap.js')
+const normalmap = require('./src/normalmap.js');
+const { copyFile } = require('node:fs');
 
 
 let user = os.userInfo().username
@@ -135,6 +135,9 @@ function sleep(ms) {
   }
 
   //settings
+  
+  //use new GUI pls!!!
+
 
   console.log('\r\n')
 
@@ -144,10 +147,14 @@ function sleep(ms) {
   }
 
   console.log('Obsidian'.brightBlue)
-  console.log('DevMerSetup'.brightBlue)
-  console.log('QuickNewPreset'.brightBlue)
   console.log('QuickSetupPack'.brightBlue)
   console.log('QuickSetupPack-D'.brightBlue)
+  console.log('ImportGenerationData'.brightBlue)
+  if(appSettings.enableDevTools){
+  console.log('DevMerBuild'.brightMagenta)
+  console.log('QuickNewPreset'.brightMagenta)
+  console.log('RunDevMerTexturePurge'.brightMagenta)
+  }
 
   const command = await prompts({
     type: 'text',
@@ -372,7 +379,7 @@ function sleep(ms) {
     console.log("pack doesn't exist!".error)
   }
     
-  }else if(command.option == 'DevMerSetup'){
+  }else if(command.option == 'DevMerBuild' && appSettings.enableDevTools){
     fs.readdirSync('./block_cat/').forEach(file => {
       console.log(file.brightRed)
     });
@@ -401,7 +408,7 @@ function sleep(ms) {
       console.log('stopping...'.silly)
     }
 
-  }else if(command.option == 'QuickNewPreset'){
+  }else if(command.option == 'QuickNewPreset' && appSettings.enableDevTools){
     const newPresetName = await prompts({
       type: 'text',
       name: 'name',
@@ -473,5 +480,51 @@ function sleep(ms) {
     });
 
     console.log("DONE!!! :3".brightMagenta)
-  }
+  }else if(command.option == 'RunDevMerTexturePurge' && appSettings.enableDevTools){
+          fs.readdirSync('./block_cat/').forEach(folder => {
+            if(!folder.endsWith('.txt')){
+            fs.readdirSync('./block_cat/'+folder+'/').forEach(file => {
+
+              if(file.endsWith('.png')){
+
+                console.log(folder)
+                console.log(file)
+
+                Jimp.read('./block_cat/'+folder+'/'+file, (err, texture) => {
+                  if (err) throw err;
+                  texture
+                  .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
+                    this.bitmap.data[idx+3] = 0
+                    this.bitmap.data[idx+0] = 0
+                    this.bitmap.data[idx+1] = 0
+                    this.bitmap.data[idx+2] = 0
+                })
+                .write('./block_cat/'+folder+'/'+file)
+              })
+
+              }else if(file.endsWith('.tga')){
+
+                var writeStream = fs.createWriteStream('./block_cat/'+folder+'/'+file);
+                writeStream.write('0')
+
+              }
+
+            });
+          }});
+    }else if(command.option == 'ImportGenerationData'){
+      fs.readdirSync('./src/custom_categories/').forEach(folder => {
+        console.log(folder.brightYellow)
+      })
+
+      console.log('It is recommended that you delete existing category text files before continuing'.red)
+      const catData = await prompts({
+        type: 'text',
+        name: 'choice',
+        message: 'Which generation pack would you like to use? (Choices listed above)'
+      });
+
+      fs.readdirSync('./src/custom_categories/'+catData.choice+'/').forEach(async file => {
+          fs.copyFile('./src/custom_categories/'+catData.choice+'/'+file,'./block_cat/'+file)
+      })
+    }
 })();
