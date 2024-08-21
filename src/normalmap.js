@@ -102,7 +102,7 @@ function generateNormals(folder, configPath){
             let pixelX = (right - pixel) + (left - pixel)
 
             pixelY = (127+(pixelY/0.7))
-            pixelX = (127-(pixelX/0.7))
+            pixelX = (127+(pixelX/0.7))
 
             if(pixelY > 255){
               pixelY = 255
@@ -143,7 +143,6 @@ function generateNormals(folder, configPath){
             this.bitmap.data[idx + 2] = 255;
 
           })
-          .gaussian(1)
           .write(folder+'/'+file)
         })
 
@@ -212,7 +211,7 @@ function generateNormals(folder, configPath){
           let pixelX = (right - pixel) + (left - pixel)
 
           pixelY = (127+(pixelY/0.7))
-          pixelX = (127-(pixelX/0.7))
+          pixelX = (127+(pixelX/0.7))
 
           if(pixelY > 127){
             pixelY = 127
@@ -284,7 +283,7 @@ function generateNormals(folder, configPath){
             let pixelX = (right - pixel) + (left - pixel)
 
             pixelY = (127+(pixelY/1.3))
-            pixelX = (127-(pixelX/1.3))
+            pixelX = (127+(pixelX/1.3))
 
             if(pixelY > 255){
               pixelY = 255

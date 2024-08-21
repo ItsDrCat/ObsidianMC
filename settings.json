@@ -1,4 +1,4 @@
 {
     "doBootAnimation": true,
-    "enableDevTools": false
+    "enableDevTools": true
 }

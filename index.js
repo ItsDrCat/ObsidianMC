@@ -68,7 +68,7 @@ function sleep(ms) {
   //oh my god, its so shit
   //remember that you have to make a toggle for this bud
   if(appSettings.doBootAnimation == true){
-  console.log('************** OBSIDIAN-MC V0.1.6a **************'.pip)
+  console.log('************** OBSIDIAN-MC V0.1.6b **************'.pip)
   console.log('\r\n')
   await sleep (200)
   console.log('MADE BY ITSDRCAT'.pip)
@@ -249,75 +249,97 @@ function sleep(ms) {
   }) 
 
 
-  heightmap.heightmapProcess(folder, configPath)
+
+
+  try{
+    if(fs.existsSync(folder)){
+      //tga
+  fs.readdirSync(folder).forEach(async file => {
+    if(file.endsWith('.tga') &! file.endsWith('_h.tga')){
+    let slicedFile = file.slice(0,-4)
+    var tga = new TGA(fs.readFileSync(folder+'/'+file));
+    var PNG = require('pngjs').PNG;
+    var png = new PNG({
+      width: tga.width,
+      height: tga.height
+    });
+    png.data = tga.pixels;
+    png.pack().pipe(fs.createWriteStream(folder+'/'+slicedFile+'.png'));
+    await sleep(9000)
+  }
+  });
+    }
+  } catch (error){
+    console.warn(error);
+  }
+  await sleep(3000)
+  fs.readdirSync(folder).forEach(subFolder => {
+    if(!subFolder.endsWith('.txt') && !subFolder.endsWith('.tga') && !subFolder.endsWith('.png') && !subFolder.endsWith('.json') && !subFolder.endsWith('.zip') && !subFolder.endsWith('.aseprite'))
+      {
+        heightmap.heightmapProcess(folder+'/'+subFolder, configPath)
+      }
+  })
+
+
+
+
+
+  await sleep (10000)
+
+  try{
+    if(fs.existsSync(folder)){
+      heightmap.heightmapProcess(folder, configPath)
+    }
+  } catch (error){
+    console.warn(error);
+  }
+  await sleep(3000)
+  fs.readdirSync(folder).forEach(subFolder => {
+    if(!subFolder.endsWith('.txt') && !subFolder.endsWith('.tga') && !subFolder.endsWith('.png') && !subFolder.endsWith('.json') && !subFolder.endsWith('.zip') && !subFolder.endsWith('.aseprite'))
+      {
+        heightmap.heightmapProcess(folder+'/'+subFolder, configPath)
+      }
+  })
+
     await sleep(11000)
+
     try{
-      mer.createMer(folder,'.png', folder, configPath)
-    } catch (error){
-      console.warn(error);
-    }
-    await sleep(5000)
-    try{
-      if(fs.existsSync(folder+'/candles')){
-      mer.createMer(folder+'/candles','.png', folder+'/candles', configPath)
+      if(fs.existsSync(folder)){
+        mer.createMer(folder,'.png', folder, configPath)
       }
     } catch (error){
       console.warn(error);
     }
-    await sleep(5000)
-    try{
-      if(fs.existsSync(folder+'/deepslate')){
-      mer.createMer(folder+'/deepslate','.png', folder+'/deepslate', configPath)
-      }
-    } catch (error){
-      console.warn(error);
-    }
-    await sleep(5000)
-    try{
-      if(fs.existsSync(folder+'/huge_fungus')){
-      mer.createMer(folder+'/huge_fungus','.png', folder+'/huge_fungus', configPath)
-      }
-    } catch (error){
-      console.warn(error);
-    }
+    await sleep(3000)
+    fs.readdirSync(folder).forEach(subFolder => {
+      if(!subFolder.endsWith('.txt') && !subFolder.endsWith('.tga') && !subFolder.endsWith('.png') && !subFolder.endsWith('.json') && !subFolder.endsWith('.zip') && !subFolder.endsWith('.aseprite'))
+        {
+          mer.createMer(folder+'/'+subFolder,'.png',folder+'/'+subFolder,configPath)
+        }
+    })
+
+    
     await sleep(5000)
     mer.createMer('./tempimg','.png', folder, configPath)
     fs.cpSync('./src/presets/'+preset.preset+'/fogs', folderBase +'/fogs', {recursive: true});
     fs.cpSync('./src/presets/'+preset.preset+'/biomes_client.json', folderBase +'/biomes_client.json', {recursive: false});
     
     if(config.generateNormalmaps == 1){
-    await sleep(15000)
-    try{
-      if(fs.existsSync(folder)){
-      normalmap.generateNormals(folder, configPath)
+      await sleep(15000)
+      try{
+        if(fs.existsSync(folder)){
+        normalmap.generateNormals(folder, configPath)
+        }
+      } catch (error){
+        console.warn(error);
       }
-    } catch (error){
-      console.warn(error);
-    }
-    await sleep(15000)
-    try{
-      if(fs.existsSync(folder+'/candles')){
-        normalmap.generateNormals(folder+'/candles', configPath)
-      }
-    } catch (error){
-      console.warn(error);
-    }
-    await sleep(15000)
-    try{
-      if(fs.existsSync(folder+'/deepslate')){
-        normalmap.generateNormals(folder+'/deepslate', configPath)
-      }
-    } catch (error){
-      console.warn(error);
-    }
-    await sleep(15000)
-    try{
-      if(fs.existsSync(folder+'/huge_fungus')){
-        normalmap.generateNormals(folder+'/huge_fungus', configPath)
-      }
-    } catch (error){
-      console.warn(error);
-    }
+      await sleep(15000)
+      fs.readdirSync(folder).forEach(subFolder => {
+        if(!subFolder.endsWith('.txt') && !subFolder.endsWith('.tga') && !subFolder.endsWith('.png') && !subFolder.endsWith('.json') && !subFolder.endsWith('.zip') && !subFolder.endsWith('.aseprite'))
+          {
+            normalmap.generateNormals(folder+'/'+subFolder, configPath)
+          }
+      })
   }
 
   if(config.generateNormalmaps == 2){
@@ -329,31 +351,54 @@ function sleep(ms) {
     } catch (error){
       console.warn(error);
     }
-    await sleep(15000)
-    try{
-      if(fs.existsSync(folder+'/candles')){
-        normalmap.generateHeightNormals(folder+'/candles', configPath)
-      }
-    } catch (error){
-      console.warn(error);
-    }
-    await sleep(15000)
-    try{
-      if(fs.existsSync(folder+'/deepslate')){
-        normalmap.generateHeightNormals(folder+'/deepslate', configPath)
-      }
-    } catch (error){
-      console.warn(error);
-    }
-    await sleep(15000)
-    try{
-      if(fs.existsSync(folder+'/huge_fungus')){
-        normalmap.generateHeightNormals(folder+'/huge_fungus', configPath)
-      }
-    } catch (error){
-      console.warn(error);
-    }
+    await sleep(3000)
+    fs.readdirSync(folder).forEach(subFolder => {
+      if(!subFolder.endsWith('.txt') && !subFolder.endsWith('.tga') && !subFolder.endsWith('.png') && !subFolder.endsWith('.json') && !subFolder.endsWith('.zip') && !subFolder.endsWith('.aseprite'))
+        {
+          normalmap.generateHeightNormals(folder+'/'+subFolder, configPath)
+        }
+    })
   }
+
+
+  //fix water
+
+
+  if(!fs.existsSync(folder+'/water_flow_grey.png')){
+    fs.copySync('./presets/'+preset.preset+'/assets/water/water_flow_grey.png',folder)
+  }
+
+  if(!fs.existsSync(folder+'/water_still_grey.png')){
+    fs.copySync('./presets/'+preset.preset+'/assets/water/water_still_grey.png',folder)
+  }
+
+  if(fs.existsSync(folder+'/water_flow_grey.png')){
+  Jimp.read(folder+'/water_flow_grey.png', (err, texture) => {
+    if (err) throw err;
+    texture
+      .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
+          this.bitmap.data[idx+3] = 127
+          if(config.isDeferred == true){
+            this.bitmap.data[idx+3] = 150
+          }
+      })
+      .write(folder+'/water_flow_grey.png'); // save
+  });
+}
+if(fs.existsSync(folder+'/water_still_grey.png')){
+  Jimp.read(folder+'/water_still_grey.png', (err, texture) => {
+    if (err) throw err;
+    texture
+      .scan(0, 0, texture.bitmap.width, texture.bitmap.height, function (x, y, idx) {
+          this.bitmap.data[idx+3] = 127
+          if(config.isDeferred == true){
+            this.bitmap.data[idx+3] = 150
+          }
+      })
+      .write(folder+'/water_still_grey.png'); // save
+  });
+}
+  await sleep(3000)
 
     console.log("\r\nPlease wait until Obsidian automatically closes this window. \r\nThis may take some time...".brightMagenta)
     
